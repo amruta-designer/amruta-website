@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bupa Design System · Search Component</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bliss+Pro:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Bupa Design Tokens ── */
+    :root {
+      /* Bupa Brand Colours */
+      --bupa-navy:        #003057;
+      --bupa-blue:        #00A9CE;
+      --bupa-blue-dark:   #007EA8;
+      --bupa-blue-light:  #E5F6FB;
+      --bupa-white:       #FFFFFF;
+      --bupa-grey-05:     #F5F6F7;
+      --bupa-grey-10:     #E8EAEC;
+      --bupa-grey-30:     #B3BAC0;
+      --bupa-grey-60:     #6B7680;
+      --bupa-grey-80:     #3D4A54;
+      --bupa-text:        #1A2732;
+      --bupa-error:       #D0021B;
+      --bupa-error-bg:    #FFF2F4;
+      --bupa-success:     #007A3E;
+      --bupa-focus-ring:  #00A9CE;
+
+      /* Spacing */
+      --space-2:  2px;
+      --space-4:  4px;
+      --space-6:  6px;
+      --space-8:  8px;
+      --space-12: 12px;
+      --space-16: 16px;
+      --space-20: 20px;
+      --space-24: 24px;
+      --space-32: 32px;
+      --space-48: 48px;
+      --space-64: 64px;
+
+      /* Typography */
+      --font-body: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+      --font-size-xs:  0.75rem;   /* 12px */
+      --font-size-sm:  0.875rem;  /* 14px */
+      --font-size-md:  1rem;      /* 16px */
+      --font-size-lg:  1.125rem;  /* 18px */
+
+      /* Border */
+      --radius-sm:  4px;
+      --radius-md:  8px;
+      --radius-pill: 100px;
+
+      /* Input sizing */
+      --input-height: 48px;
+      --input-height-sm: 40px;
+
+      /* Transitions */
+      --transition: 0.18s ease;
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bupa-grey-05);
+      color: var(--bupa-text);
+      line-height: 1.5;
+    }
+
+    /* ── Page layout ── */
+    .page-header {
+      background: var(--bupa-navy);
+      padding: var(--space-24) var(--space-32);
+      display: flex;
+      align-items: center;
+      gap: var(--space-16);
+    }
+    .page-header .bupa-logo svg { display: block; }
+    .page-header-divider {
+      width: 1px;
+      height: 32px;
+      background: rgba(255,255,255,0.25);
+    }
+    .page-header h1 {
+      font-size: var(--font-size-lg);
+      font-weight: 600;
+      color: var(--bupa-white);
+    }
+    .page-header p {
+      font-size: var(--font-size-sm);
+      color: rgba(255,255,255,0.65);
+    }
+
+    .page-content {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: var(--space-48) var(--space-32);
+    }
+
+    /* ── Section ── */
+    .ds-section {
+      background: var(--bupa-white);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--bupa-grey-10);
+      padding: var(--space-32);
+      margin-bottom: var(--space-32);
+    }
+    .ds-section-title {
+      font-size: var(--font-size-sm);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bupa-grey-60);
+      margin-bottom: var(--space-24);
+      padding-bottom: var(--space-12);
+      border-bottom: 1px solid var(--bupa-grey-10);
+    }
+
+    /* ── States grid ── */
+    .states-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: var(--space-32);
+    }
+    .state-block { display: flex; flex-direction: column; gap: var(--space-8); }
+    .state-label {
+      font-size: var(--font-size-xs);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--bupa-grey-60);
+    }
+    .state-meta {
+      font-size: var(--font-size-xs);
+      color: var(--bupa-grey-60);
+      margin-top: var(--space-4);
+    }
+
+    /* ════════════════════════════════════════
+       SEARCH COMPONENT
+    ════════════════════════════════════════ */
+
+    /* Wrapper aligns input + search button */
+    .bupa-search-wrapper {
+      display: flex;
+      align-items: center;
+      gap: var(--space-8);
+      width: 100%;
+    }
+
+    /* Input shell: contains search-icon + input + clear-btn */
+    .bupa-search-field {
+      position: relative;
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Left search icon */
+    .bupa-search-field__icon {
+      position: absolute;
+      left: var(--space-16);
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--bupa-grey-60);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color var(--transition);
+      z-index: 1;
+    }
+
+    /* The text input */
+    .bupa-search-input {
+      width: 100%;
+      height: var(--input-height);
+      padding: 0 var(--space-48) 0 var(--space-48);
+      font-family: var(--font-body);
+      font-size: var(--font-size-md);
+      font-weight: 400;
+      color: var(--bupa-text);
+      background: var(--bupa-white);
+      border: 2px solid var(--bupa-grey-30);
+      border-radius: var(--radius-sm);
+      outline: none;
+      transition:
+        border-color var(--transition),
+        box-shadow var(--transition),
+        background var(--transition);
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .bupa-search-input::placeholder {
+      color: var(--bupa-grey-60);
+    }
+
+    /* Right clear button (inside input) */
+    .bupa-search-clear {
+      position: absolute;
+      right: var(--space-12);
+      top: 50%;
+      transform: translateY(-50%);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: none;
+      background: var(--bupa-grey-10);
+      color: var(--bupa-grey-80);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition:
+        background var(--transition),
+        color var(--transition),
+        opacity var(--transition);
+      z-index: 1;
+      padding: 0;
+    }
+    .bupa-search-clear:hover {
+      background: var(--bupa-grey-30);
+      color: var(--bupa-navy);
+    }
+    .bupa-search-clear:focus-visible {
+      outline: 2px solid var(--bupa-focus-ring);
+      outline-offset: 2px;
+    }
+    /* Hidden by default, visible when has value */
+    .bupa-search-clear[hidden],
+    .bupa-search-clear.is-hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Search action button (after input) */
+    .bupa-search-btn {
+      flex-shrink: 0;
+      height: var(--input-height);
+      width: var(--input-height);
+      border: none;
+      border-radius: var(--radius-sm);
+      background: var(--bupa-blue);
+      color: var(--bupa-white);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition:
+        background var(--transition),
+        box-shadow var(--transition),
+        transform var(--transition);
+      padding: 0;
+    }
+    .bupa-search-btn:hover {
+      background: var(--bupa-blue-dark);
+      box-shadow: 0 2px 8px rgba(0,169,206,0.35);
+    }
+    .bupa-search-btn:active { transform: scale(0.96); }
+    .bupa-search-btn:focus-visible {
+      outline: 2px solid var(--bupa-focus-ring);
+      outline-offset: 3px;
+    }
+
+    /* ── STATE: Default (empty) ── */
+    /* default styles already defined above */
+
+    /* ── STATE: Focus ── */
+    .bupa-search-input:focus,
+    .is-focused .bupa-search-input {
+      border-color: var(--bupa-blue);
+      box-shadow: 0 0 0 3px rgba(0,169,206,0.2);
+    }
+    .is-focused .bupa-search-field__icon {
+      color: var(--bupa-blue);
+    }
+
+    /* ── STATE: Filled (has value) ── */
+    .is-filled .bupa-search-input {
+      border-color: var(--bupa-grey-80);
+    }
+    .is-filled .bupa-search-field__icon {
+      color: var(--bupa-grey-80);
+    }
+
+    /* ── STATE: Disabled ── */
+    .is-disabled .bupa-search-input {
+      border-color: var(--bupa-grey-10);
+      background: var(--bupa-grey-05);
+      color: var(--bupa-grey-30);
+      cursor: not-allowed;
+    }
+    .is-disabled .bupa-search-input::placeholder { color: var(--bupa-grey-30); }
+    .is-disabled .bupa-search-field__icon { color: var(--bupa-grey-30); }
+    .is-disabled .bupa-search-btn {
+      background: var(--bupa-grey-10);
+      color: var(--bupa-grey-30);
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* ── STATE: Error ── */
+    .is-error .bupa-search-input {
+      border-color: var(--bupa-error);
+      background: var(--bupa-error-bg);
+    }
+    .is-error .bupa-search-input:focus,
+    .is-error.is-focused .bupa-search-input {
+      box-shadow: 0 0 0 3px rgba(208,2,27,0.15);
+    }
+    .is-error .bupa-search-field__icon { color: var(--bupa-error); }
+
+    .bupa-search-message {
+      font-size: var(--font-size-sm);
+      margin-top: var(--space-6);
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+    .bupa-search-message.is-error { color: var(--bupa-error); }
+    .bupa-search-message.is-hint  { color: var(--bupa-grey-60); }
+
+    /* ── STATE: Loading ── */
+    .is-loading .bupa-search-btn {
+      background: var(--bupa-blue-dark);
+      pointer-events: none;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255,255,255,0.35);
+      border-top-color: var(--bupa-white);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    /* ── STATE: Pill / rounded variant ── */
+    .is-pill .bupa-search-input {
+      border-radius: var(--radius-pill);
+    }
+    .is-pill .bupa-search-btn {
+      border-radius: var(--radius-pill);
+    }
+
+    /* ── Anatomy annotation ── */
+    .anatomy-wrap {
+      position: relative;
+      padding: var(--space-24) var(--space-24);
+      background: var(--bupa-grey-05);
+      border: 1px dashed var(--bupa-grey-30);
+      border-radius: var(--radius-md);
+    }
+    .anatomy-label {
+      position: absolute;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--bupa-blue-dark);
+      background: white;
+      border: 1px solid var(--bupa-blue);
+      border-radius: 3px;
+      padding: 2px 6px;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .anatomy-line {
+      position: absolute;
+      border-left: 1px dashed var(--bupa-blue);
+    }
+
+    /* ── Spacing callout ── */
+    .token-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-12);
+      padding: var(--space-8) 0;
+      border-bottom: 1px solid var(--bupa-grey-10);
+      font-size: var(--font-size-sm);
+    }
+    .token-row:last-child { border-bottom: none; }
+    .token-swatch {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--bupa-grey-10);
+      flex-shrink: 0;
+    }
+    .token-name { font-weight: 600; flex: 1; }
+    .token-value { color: var(--bupa-grey-60); font-family: monospace; }
+
+    /* ── Colour tokens section ── */
+    .colour-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: var(--space-12);
+    }
+    .colour-chip {
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--bupa-grey-10);
+    }
+    .colour-chip__swatch { height: 56px; }
+    .colour-chip__info {
+      padding: var(--space-8) var(--space-12);
+      background: var(--bupa-white);
+    }
+    .colour-chip__name { font-size: var(--font-size-sm); font-weight: 600; }
+    .colour-chip__hex { font-size: var(--font-size-xs); color: var(--bupa-grey-60); font-family: monospace; }
+
+    /* ── Interactive demo ── */
+    .demo-wrap {
+      background: var(--bupa-grey-05);
+      border-radius: var(--radius-md);
+      padding: var(--space-32);
+    }
+    .demo-label {
+      font-size: var(--font-size-sm);
+      font-weight: 600;
+      color: var(--bupa-grey-60);
+      margin-bottom: var(--space-16);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Page Header ── -->
+<header class="page-header">
+  <div class="bupa-logo">
+    <svg width="72" height="28" viewBox="0 0 72 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Bupa">
+      <rect width="72" height="28" rx="4" fill="#00A9CE"/>
+      <text x="12" y="20" font-family="Arial, sans-serif" font-weight="700" font-size="16" fill="white">Bupa</text>
+    </svg>
+  </div>
+  <div class="page-header-divider"></div>
+  <div>
+    <h1>Design System</h1>
+    <p>Search — Web Component</p>
+  </div>
+</header>
+
+<main class="page-content">
+
+  <!-- ════════ 1. INTERACTIVE DEMO ════════ -->
+  <div class="ds-section">
+    <p class="ds-section-title">Interactive Demo</p>
+    <div class="demo-wrap">
+      <p class="demo-label">Try the component — type to see the clear button appear</p>
+      <div class="bupa-search-wrapper" id="live-search">
+        <div class="bupa-search-field">
+          <span class="bupa-search-field__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </span>
+          <input
+            type="search"
+            class="bupa-search-input"
+            id="live-input"
+            placeholder="Search Bupa…"
+            aria-label="Search"
+            autocomplete="off"
+          />
+          <button
+            class="bupa-search-clear is-hidden"
+            id="live-clear"
+            type="button"
+            aria-label="Clear search"
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+        <button class="bupa-search-btn" type="button" aria-label="Submit search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ 2. ANATOMY ════════ -->
+  <div class="ds-section">
+    <p class="ds-section-title">Anatomy</p>
+    <div style="position:relative; padding: 48px 24px 56px;">
+      <!-- Component -->
+      <div class="bupa-search-wrapper" style="max-width:480px; margin: 0 auto;">
+        <div class="bupa-search-field is-filled">
+          <span class="bupa-search-field__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </span>
+          <input type="text" class="bupa-search-input" value="Private health" aria-label="Search" readonly />
+          <button class="bupa-search-clear" type="button" aria-label="Clear search">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+        <button class="bupa-search-btn" type="button" aria-label="Submit search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+      </div>
+      <!-- Annotation labels -->
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:20px; justify-content:center;">
+        <span style="font-size:11px; font-weight:600; background:var(--bupa-blue-light); color:var(--bupa-blue-dark); border:1px solid var(--bupa-blue); border-radius:4px; padding:3px 10px;">① Search icon</span>
+        <span style="font-size:11px; font-weight:600; background:var(--bupa-blue-light); color:var(--bupa-blue-dark); border:1px solid var(--bupa-blue); border-radius:4px; padding:3px 10px;">② Input field</span>
+        <span style="font-size:11px; font-weight:600; background:var(--bupa-blue-light); color:var(--bupa-blue-dark); border:1px solid var(--bupa-blue); border-radius:4px; padding:3px 10px;">③ Clear button</span>
+        <span style="font-size:11px; font-weight:600; background:var(--bupa-blue-light); color:var(--bupa-blue-dark); border:1px solid var(--bupa-blue); border-radius:4px; padding:3px 10px;">④ Search action button</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ 3. STATES ════════ -->
+  <div class="ds-section">
+    <p class="ds-section-title">Input States</p>
+    <div class="states-grid">
+
+      <!-- Default / Empty -->
+      <div class="state-block">
+        <span class="state-label">1 · Default</span>
+        <div class="bupa-search-wrapper">
+          <div class="bupa-search-field">
+            <span class="bupa-search-field__icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </span>
+            <input type="text" class="bupa-search-input" placeholder="Search Bupa…" aria-label="Search" />
+            <button class="bupa-search-clear is-hidden" type="button" aria-label="Clear search">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+          <button class="bupa-search-btn" type="button" aria-label="Submit search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </button>
+        </div>
+        <p class="state-meta">Resting state · 2px border · grey-30</p>
+      </div>
+
+      <!-- Hover -->
+      <div class="state-block">
+        <span class="state-label">2 · Hover</span>
+        <div class="bupa-search-wrapper">
+          <div class="bupa-search-field">
+            <span class="bupa-search-field__icon" aria-hidden="true" style="color:var(--bupa-grey-80)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </span>
+            <input type="text" class="bupa-search-input" placeholder="Search Bupa…" aria-label="Search" style="border-color:var(--bupa-grey-80);" />
+            <button class="bupa-search-clear is-hidden" type="button" aria-label="Clear search">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+          <button class="bupa-search-btn" type="button" aria-label="Submit search" style="background:var(--bupa-blue-dark);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </button>
+        </div>
+        <p class="state-meta">Border darkens to grey-80 on hover</p>
+      </div>
+
+      <!-- Focus -->
+      <div class="state-block">
+        <span class="state-label">3 · Focus</span>
+        <div class="bupa-search-wrapper is-focused">
+          <div class="bupa-search-field">
+            <span class="bupa-search-field__icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </span>
+            <input type="text" class="bupa-search-input" placeholder="Search Bupa…" aria-label="Search" style="border-color:var(--bupa-blue); box-shadow:0 0 0 3px rgba(0,169,206,0.2);" />
+            <button class="bupa-search-clear is-hidden" type="button" aria-label="Clear search">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+          <button class="bupa-search-btn" type="button" aria-label="Submit search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </button>
+        </div>
+        <p class="state-meta">Bupa blue border · 3px focus ring at 20% opacity</p>
+      </div>
+
+      <!-- Filled (with value + clear) -->
+      <div class="state-block">
+        <span class="state-label">4 · Filled — has value</span>
+        <div class="bupa-search-wrapper is-filled">
+          <div class="bupa-search-field">
+            <span class="bupa-search-field__icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </span>
+            <input type="text" class="bupa-search-input" value="Private health insurance" aria-label="Search" />
+            <button class="bupa-search-clear" type="button" aria-label="Clear search">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+          <button class="bupa-search-btn" type="button" aria-label="Submit search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </button>
+        </div>
+        <p class="state-meta">Clear button visible · grey-80 border</p>
+      </div>
+
+      <!-- Disabled -->
+      <div class="state-block">
+        <span class="state-label">5 · Disabled</span>
+        <div class="bupa-search-wrapper is-disabled">
+          <div class="bupa-search-field">
+            <span class="bupa-search-field__icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </span>
+            <input type="text" class="bupa-search-input" placeholder="Search unavailable" aria-label="Search" disabled />
+            <button class="bupa-search-clear is-hidden" type="button" aria-label="Clear search" disabled>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+          <button class="bupa-search-btn" type="button" aria-label="Submit search" disabled>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </button>
+        </div>
+        <p class="state-meta">Reduced contrast · cursor: not-allowed · not interactive</p>
+      </div>
+
+      <!-- Error -->
+      <div class="state-block">
+        <span class="state-label">6 · Error</span>
+        <div class="bupa-search-wrapper is-error">
+          <div class="bupa-search-field">
+            <span class="bupa-search-field__icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </span>
+            <input type="text" class="bupa-search-input" value="@@@invalid" aria-label="Search" aria-describedby="err-msg" aria-invalid="true" />
+            <button class="bupa-search-clear" type="button" aria-label="Clear search">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+          <button class="bupa-search-btn" type="button" aria-label="Submit search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </button>
+        </div>
+        <p class="bupa-search-message is-error" id="err-msg" role="alert">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Enter a valid search term
+        </p>
+      </div>
+
+      <!-- Loading -->
+      <div class="state-block">
+        <span class="state-label">7 · Loading</span>
+        <div class="bupa-search-wrapper is-loading is-filled">
+          <div class="bupa-search-field">
+            <span class="bupa-search-field__icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </span>
+            <input type="text" class="bupa-search-input" value="Private health" aria-label="Search" aria-busy="true" readonly />
+            <button class="bupa-search-clear is-hidden" type="button" aria-label="Clear search">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+          <button class="bupa-search-btn" type="button" aria-label="Searching…" aria-disabled="true">
+            <span class="spinner" role="status" aria-label="Loading"></span>
+          </button>
+        </div>
+        <p class="state-meta">Spinner replaces icon · button disabled during search</p>
+      </div>
+
+      <!-- Read-only -->
+      <div class="state-block">
+        <span class="state-label">8 · Read-only</span>
+        <div class="bupa-search-wrapper">
+          <div class="bupa-search-field">
+            <span class="bupa-search-field__icon" aria-hidden="true" style="color:var(--bupa-grey-60)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </span>
+            <input type="text" class="bupa-search-input" value="Dental cover plans" aria-label="Search" readonly
+              style="border-color:var(--bupa-grey-10); background:var(--bupa-grey-05); cursor:default;" />
+            <button class="bupa-search-clear is-hidden" type="button" aria-label="Clear search">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+          <button class="bupa-search-btn" type="button" aria-label="Submit search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </button>
+        </div>
+        <p class="state-meta">Non-editable · grey-05 background · selectable text</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════ 4. VARIANTS ════════ -->
+  <div class="ds-section">
+    <p class="ds-section-title">Variants</p>
+    <div class="states-grid">
+
+      <!-- Pill / Rounded -->
+      <div class="state-block">
+        <span class="state-label">Pill / Rounded</span>
+        <div class="bupa-search-wrapper is-pill">
+          <div class="bupa-search-field">
+            <span class="bupa-search-field__icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </span>
+            <input type="text" class="bupa-search-input" placeholder="Search Bupa…" aria-label="Search" />
+            <button class="bupa-search-clear is-hidden" type="button" aria-label="Clear search">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+          <button class="bupa-search-btn" type="button" aria-label="Submit search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </button>
+        </div>
+        <p class="state-meta">border-radius: 100px · for hero / marketing contexts</p>
+      </div>
+
+      <!-- Small -->
+      <div class="state-block">
+        <span class="state-label">Small (40px)</span>
+        <div class="bupa-search-wrapper">
+          <div class="bupa-search-field">
+            <span class="bupa-search-field__icon" aria-hidden="true" style="left:12px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </span>
+            <input type="text" class="bupa-search-input" placeholder="Search…" aria-label="Search"
+              style="height:var(--input-height-sm); font-size:var(--font-size-sm); padding-left:38px; padding-right:36px;" />
+            <button class="bupa-search-clear is-hidden" type="button" aria-label="Clear search" style="right:8px; width:20px; height:20px;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>
+          <button class="bupa-search-btn" type="button" aria-label="Submit search"
+            style="width:var(--input-height-sm); height:var(--input-height-sm);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </button>
+        </div>
+        <p class="state-meta">40px height · 14px font · compact layouts</p>
+      </div>
+
+      <!-- No button (inline) -->
+      <div class="state-block">
+        <span class="state-label">Inline — no action button</span>
+        <div class="bupa-search-wrapper">
+          <div class="bupa-search-field">
+            <span class="bupa-search-field__icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </span>
+            <input type="text" class="bupa-search-input" placeholder="Filter results…" aria-label="Filter" style="padding-right:16px;" />
+          </div>
+        </div>
+        <p class="state-meta">Search-as-you-type · no submit button needed</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════ 5. COLOUR TOKENS ════════ -->
+  <div class="ds-section">
+    <p class="ds-section-title">Component Colour Tokens</p>
+    <div class="colour-grid">
+      <div class="colour-chip">
+        <div class="colour-chip__swatch" style="background:#003057;"></div>
+        <div class="colour-chip__info">
+          <p class="colour-chip__name">Navy</p>
+          <p class="colour-chip__hex">--bupa-navy · #003057</p>
+        </div>
+      </div>
+      <div class="colour-chip">
+        <div class="colour-chip__swatch" style="background:#00A9CE;"></div>
+        <div class="colour-chip__info">
+          <p class="colour-chip__name">Bupa Blue</p>
+          <p class="colour-chip__hex">--bupa-blue · #00A9CE</p>
+        </div>
+      </div>
+      <div class="colour-chip">
+        <div class="colour-chip__swatch" style="background:#007EA8;"></div>
+        <div class="colour-chip__info">
+          <p class="colour-chip__name">Blue Dark</p>
+          <p class="colour-chip__hex">--bupa-blue-dark · #007EA8</p>
+        </div>
+      </div>
+      <div class="colour-chip">
+        <div class="colour-chip__swatch" style="background:#E5F6FB; border:1px solid #B3BAC0;"></div>
+        <div class="colour-chip__info">
+          <p class="colour-chip__name">Blue Light</p>
+          <p class="colour-chip__hex">--bupa-blue-light · #E5F6FB</p>
+        </div>
+      </div>
+      <div class="colour-chip">
+        <div class="colour-chip__swatch" style="background:#D0021B;"></div>
+        <div class="colour-chip__info">
+          <p class="colour-chip__name">Error</p>
+          <p class="colour-chip__hex">--bupa-error · #D0021B</p>
+        </div>
+      </div>
+      <div class="colour-chip">
+        <div class="colour-chip__swatch" style="background:#B3BAC0;"></div>
+        <div class="colour-chip__info">
+          <p class="colour-chip__name">Border Default</p>
+          <p class="colour-chip__hex">--bupa-grey-30 · #B3BAC0</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ 6. SPACING TOKENS ════════ -->
+  <div class="ds-section">
+    <p class="ds-section-title">Spacing &amp; Sizing Tokens</p>
+    <div class="token-row">
+      <div class="token-swatch" style="background:var(--bupa-blue); width:48px; height:48px; border-radius:4px;"></div>
+      <span class="token-name">Input height</span>
+      <span class="token-value">--input-height · 48px</span>
+    </div>
+    <div class="token-row">
+      <div class="token-swatch" style="background:var(--bupa-blue); width:40px; height:40px; border-radius:4px;"></div>
+      <span class="token-name">Input height (small)</span>
+      <span class="token-value">--input-height-sm · 40px</span>
+    </div>
+    <div class="token-row">
+      <div class="token-swatch" style="background:var(--bupa-grey-10); width:48px; height:16px; border-radius:2px;"></div>
+      <span class="token-name">Left / Right padding</span>
+      <span class="token-value">--space-16 · 16px</span>
+    </div>
+    <div class="token-row">
+      <div class="token-swatch" style="background:var(--bupa-grey-10); width:24px; height:24px; border-radius:50%;"></div>
+      <span class="token-name">Clear button size</span>
+      <span class="token-value">24 × 24px · border-radius: 50%</span>
+    </div>
+    <div class="token-row">
+      <div class="token-swatch" style="background:transparent; border:2px solid var(--bupa-blue); width:48px; height:48px; border-radius:4px;"></div>
+      <span class="token-name">Border width (focus)</span>
+      <span class="token-value">2px · focus ring: 3px at 20% opacity</span>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  /* Interactive demo: show/hide clear button */
+  const liveInput = document.getElementById('live-input');
+  const liveClear = document.getElementById('live-clear');
+
+  liveInput.addEventListener('input', () => {
+    if (liveInput.value.trim()) {
+      liveClear.classList.remove('is-hidden');
+    } else {
+      liveClear.classList.add('is-hidden');
+    }
+  });
+
+  liveClear.addEventListener('click', () => {
+    liveInput.value = '';
+    liveClear.classList.add('is-hidden');
+    liveInput.focus();
+  });
+</script>
+</body>
+</html>

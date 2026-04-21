@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bupa Design System · Mobile Search Component</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+
+    /* ── Bupa Tokens ── */
+    :root {
+      --bupa-navy:       #003057;
+      --bupa-blue:       #00A9CE;
+      --bupa-blue-dark:  #007EA8;
+      --bupa-blue-light: #E5F6FB;
+      --bupa-white:      #FFFFFF;
+      --bupa-grey-05:    #F5F6F7;
+      --bupa-grey-10:    #E8EAEC;
+      --bupa-grey-30:    #B3BAC0;
+      --bupa-grey-60:    #6B7680;
+      --bupa-grey-80:    #3D4A54;
+      --bupa-text:       #1A2732;
+      --bupa-error:      #D0021B;
+      --bupa-error-bg:   #FFF2F4;
+
+      /* Mobile-specific */
+      --touch-target:    52px;   /* min touch height */
+      --pill-radius:     100px;
+      --font-body:       'Source Sans 3', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: var(--font-body);
+      background: #EAECEE;
+      color: var(--bupa-text);
+      line-height: 1.5;
+    }
+
+    /* ── Page chrome ── */
+    .page-header {
+      background: var(--bupa-navy);
+      padding: 20px 24px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .page-header h1 { font-size: 1rem; font-weight: 600; color: #fff; }
+    .page-header p  { font-size: 0.75rem; color: rgba(255,255,255,0.6); }
+    .page-header-divider { width: 1px; height: 28px; background: rgba(255,255,255,0.2); }
+
+    .page-content {
+      max-width: 440px;
+      margin: 0 auto;
+      padding: 32px 20px 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* ── Section card ── */
+    .ds-section {
+      background: var(--bupa-white);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .ds-section-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--bupa-grey-60);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--bupa-grey-10);
+    }
+    .state-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .state-block { display: flex; flex-direction: column; gap: 6px; }
+    .state-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--bupa-grey-60);
+    }
+    .state-meta {
+      font-size: 0.7rem;
+      color: var(--bupa-grey-60);
+      margin-top: 2px;
+    }
+
+    /* ════════════════════════════════
+       MOBILE SEARCH — CORE COMPONENT
+    ════════════════════════════════ */
+
+    /* App top bar (mimics native app chrome) */
+    .app-bar {
+      background: var(--bupa-navy);
+      border-radius: 16px 16px 0 0;
+      padding: 14px 16px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .app-bar__back {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .app-bar__title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      flex: 1;
+    }
+
+    /* Search bar wrapper */
+    .m-search-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px 14px;
+      background: var(--bupa-navy);
+    }
+
+    /* Back chevron button (visible when active) */
+    .m-search-back {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      color: var(--bupa-white);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      padding: 0;
+    }
+    .m-search-back:focus-visible { outline: 2px solid var(--bupa-blue); outline-offset: 2px; }
+
+    /* The pill input shell */
+    .m-search-field {
+      position: relative;
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Left search icon */
+    .m-search-field__icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--bupa-grey-60);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      z-index: 1;
+      transition: color 0.18s ease;
+    }
+
+    /* The input */
+    .m-search-input {
+      width: 100%;
+      height: var(--touch-target);
+      padding: 0 44px 0 44px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--bupa-text);
+      background: var(--bupa-white);
+      border: 2px solid transparent;
+      border-radius: var(--pill-radius);
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+    .m-search-input::placeholder { color: var(--bupa-grey-60); }
+
+    /* Clear button inside input */
+    .m-search-clear {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: none;
+      background: var(--bupa-grey-10);
+      color: var(--bupa-grey-80);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.18s, opacity 0.18s;
+      z-index: 1;
+    }
+    .m-search-clear:hover { background: var(--bupa-grey-30); }
+    .m-search-clear:focus-visible { outline: 2px solid var(--bupa-blue); outline-offset: 2px; }
+    .m-search-clear.is-hidden { opacity: 0; pointer-events: none; }
+
+    /* Voice / mic button — right of input bar */
+    .m-search-voice {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.12);
+      color: var(--bupa-white);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      padding: 0;
+      transition: background 0.18s;
+    }
+    .m-search-voice:hover { background: rgba(255,255,255,0.22); }
+    .m-search-voice:focus-visible { outline: 2px solid var(--bupa-blue); outline-offset: 2px; }
+
+    /* Bottom sheet / results area */
+    .m-result-sheet {
+      background: var(--bupa-white);
+      border-radius: 0 0 16px 16px;
+      overflow: hidden;
+    }
+
+    /* Wrapper that glues bar + sheet into one phone frame */
+    .phone-frame {
+      background: var(--bupa-grey-05);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.14);
+      border: 1px solid var(--bupa-grey-10);
+    }
+
+    /* ── Result list items ── */
+    .m-result-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--bupa-grey-10);
+      cursor: pointer;
+    }
+    .m-result-item:last-child { border-bottom: none; }
+    .m-result-item__icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: var(--bupa-blue-light);
+      color: var(--bupa-blue-dark);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .m-result-item__text { flex: 1; }
+    .m-result-item__title { font-size: 0.9375rem; font-weight: 500; color: var(--bupa-text); }
+    .m-result-item__sub   { font-size: 0.8125rem; color: var(--bupa-grey-60); margin-top: 1px; }
+    .m-result-item__chevron { color: var(--bupa-grey-30); }
+
+    /* highlight matched text */
+    .m-result-item__title mark {
+      background: none;
+      color: var(--bupa-blue-dark);
+      font-weight: 700;
+    }
+
+    /* ── Suggestion chips ── */
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--bupa-grey-10);
+    }
+    .chip {
+      height: 34px;
+      padding: 0 14px;
+      border-radius: 100px;
+      border: 1.5px solid var(--bupa-blue);
+      background: var(--bupa-blue-light);
+      color: var(--bupa-blue-dark);
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    /* ── Recent searches ── */
+    .section-subhead {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--bupa-grey-60);
+      padding: 12px 16px 6px;
+    }
+    .m-recent-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--bupa-grey-10);
+    }
+    .m-recent-item:last-child { border-bottom: none; }
+    .m-recent-item__icon { color: var(--bupa-grey-30); }
+    .m-recent-item__label {
+      flex: 1;
+      font-size: 0.9375rem;
+      color: var(--bupa-grey-80);
+    }
+    .m-recent-item__remove {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      color: var(--bupa-grey-30);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    /* ── Empty / no results ── */
+    .m-empty {
+      padding: 36px 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .m-empty__icon {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--bupa-grey-05);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--bupa-grey-30);
+      margin-bottom: 4px;
+    }
+    .m-empty__title { font-size: 1rem; font-weight: 600; color: var(--bupa-text); }
+    .m-empty__body  { font-size: 0.875rem; color: var(--bupa-grey-60); max-width: 240px; }
+
+    /* ── Error banner ── */
+    .m-error-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: #FFF2F4;
+      border-top: 3px solid var(--bupa-error);
+      padding: 14px 16px;
+      color: var(--bupa-error);
+      font-size: 0.875rem;
+    }
+    .m-error-banner__icon { flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Skeleton loading ── */
+    @keyframes shimmer {
+      0%   { background-position: -300px 0; }
+      100% { background-position: 300px 0; }
+    }
+    .skeleton {
+      background: linear-gradient(90deg, var(--bupa-grey-10) 25%, var(--bupa-grey-05) 50%, var(--bupa-grey-10) 75%);
+      background-size: 600px 100%;
+      animation: shimmer 1.2s infinite linear;
+      border-radius: 6px;
+    }
+    .m-skel-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--bupa-grey-10);
+    }
+    .m-skel-item:last-child { border-bottom: none; }
+    .m-skel-icon  { width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0; }
+    .m-skel-lines { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+    .m-skel-title { height: 14px; width: 70%; }
+    .m-skel-sub   { height: 11px; width: 45%; }
+
+    /* ── Voice listening state ── */
+    @keyframes pulse-ring {
+      0%   { transform: scale(1);   opacity: 0.7; }
+      70%  { transform: scale(1.9); opacity: 0;   }
+      100% { transform: scale(1.9); opacity: 0;   }
+    }
+    .m-voice-modal {
+      background: var(--bupa-white);
+      border-radius: 0 0 16px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 36px 24px 40px;
+      gap: 16px;
+    }
+    .m-voice-ring-wrap {
+      position: relative;
+      width: 80px; height: 80px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .m-voice-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: rgba(0,169,206,0.15);
+      animation: pulse-ring 1.6s ease-out infinite;
+    }
+    .m-voice-btn {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      border: none;
+      background: var(--bupa-blue);
+      color: var(--bupa-white);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+    }
+    .m-voice-label {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--bupa-text);
+    }
+    .m-voice-sublabel {
+      font-size: 0.8125rem;
+      color: var(--bupa-grey-60);
+      text-align: center;
+      max-width: 220px;
+    }
+    .m-voice-cancel {
+      height: 40px;
+      padding: 0 24px;
+      border-radius: 100px;
+      border: 1.5px solid var(--bupa-grey-30);
+      background: transparent;
+      color: var(--bupa-grey-80);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* ── Colour tokens ── */
+    .colour-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .colour-chip { border-radius: 8px; overflow: hidden; border: 1px solid var(--bupa-grey-10); }
+    .colour-chip__swatch { height: 40px; }
+    .colour-chip__info { padding: 6px 8px; }
+    .colour-chip__name { font-size: 0.7rem; font-weight: 600; }
+    .colour-chip__hex  { font-size: 0.65rem; color: var(--bupa-grey-60); font-family: monospace; }
+
+    /* ── Token table ── */
+    .token-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--bupa-grey-10);
+      font-size: 0.8125rem;
+    }
+    .token-row:last-child { border-bottom: none; }
+    .token-name  { font-weight: 600; flex: 1; }
+    .token-value { color: var(--bupa-grey-60); font-family: monospace; font-size: 0.75rem; }
+
+  </style>
+</head>
+<body>
+
+<!-- Page header -->
+<header class="page-header">
+  <svg width="56" height="22" viewBox="0 0 72 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="72" height="28" rx="4" fill="#00A9CE"/>
+    <text x="12" y="20" font-family="Arial" font-weight="700" font-size="16" fill="white">Bupa</text>
+  </svg>
+  <div class="page-header-divider"></div>
+  <div>
+    <h1>Design System</h1>
+    <p>Mobile / App · Search Component</p>
+  </div>
+</header>
+
+<main class="page-content">
+
+
+  <!-- ════════ STATE 1: DEFAULT — resting ════════ -->
+  <div class="ds-section">
+    <p class="ds-section-title">1 · Default — Resting</p>
+    <div class="phone-frame">
+      <div class="app-bar">
+        <div class="app-bar__title">Find health cover</div>
+      </div>
+      <div class="m-search-bar">
+        <div class="m-search-field">
+          <span class="m-search-field__icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </span>
+          <input class="m-search-input" type="text" placeholder="Search Bupa…" aria-label="Search" readonly
+            style="background:#F5F6F7; border-color:transparent;" />
+          <button class="m-search-clear is-hidden" type="button" aria-label="Clear"></button>
+        </div>
+        <button class="m-search-voice" type="button" aria-label="Voice search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        </button>
+      </div>
+      <div class="m-result-sheet">
+        <p class="section-subhead">Recent searches</p>
+        <div class="m-recent-item">
+          <span class="m-recent-item__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+          <span class="m-recent-item__label">Private health insurance</span>
+          <button class="m-recent-item__remove" aria-label="Remove">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div class="m-recent-item">
+          <span class="m-recent-item__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+          <span class="m-recent-item__label">Dental cover</span>
+          <button class="m-recent-item__remove" aria-label="Remove">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div class="m-recent-item">
+          <span class="m-recent-item__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+          <span class="m-recent-item__label">Mental health support</span>
+          <button class="m-recent-item__remove" aria-label="Remove">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <p class="state-meta">Tap-to-activate · grey pill · voice mic button · recent search list</p>
+  </div>
+
+
+  <!-- ════════ STATE 2: ACTIVE / FOCUSED — keyboard open ════════ -->
+  <div class="ds-section">
+    <p class="ds-section-title">2 · Active — Focused (keyboard open)</p>
+    <div class="phone-frame">
+      <div class="m-search-bar" style="background:var(--bupa-navy);">
+        <button class="m-search-back" type="button" aria-label="Close search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="m-search-field">
+          <span class="m-search-field__icon" aria-hidden="true" style="color:var(--bupa-blue);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </span>
+          <input class="m-search-input" type="text" placeholder="Search Bupa…" aria-label="Search" readonly
+            style="border-color:var(--bupa-blue); box-shadow:0 0 0 3px rgba(0,169,206,0.22);" />
+          <button class="m-search-clear is-hidden" type="button" aria-label="Clear">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="m-result-sheet">
+        <div class="chip-row">
+          <button class="chip" type="button">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.2"/></svg>
+            Health insurance
+          </button>
+          <button class="chip" type="button">Dental</button>
+          <button class="chip" type="button">Mental health</button>
+          <button class="chip" type="button">Travel cover</button>
+        </div>
+        <p class="section-subhead">Suggested</p>
+        <div class="m-recent-item">
+          <span class="m-recent-item__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+          <span class="m-recent-item__label" style="color:var(--bupa-text);">Health insurance for families</span>
+        </div>
+        <div class="m-recent-item">
+          <span class="m-recent-item__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+          <span class="m-recent-item__label" style="color:var(--bupa-text);">Dental cover UK</span>
+        </div>
+      </div>
+    </div>
+    <p class="state-meta">Back button appears · blue border + focus ring · suggestion chips · input cursor active</p>
+  </div>
+
+
+  <!-- ════════ STATE 3: TYPING — partial input ════════ -->
+  <div class="ds-section">
+    <p class="ds-section-title">3 · Typing — Partial input</p>
+    <div class="phone-frame">
+      <div class="m-search-bar">
+        <button class="m-search-back" type="button" aria-label="Close search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="m-search-field">
+          <span class="m-search-field__icon" aria-hidden="true" style="color:var(--bupa-blue);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </span>
+          <input class="m-search-input" type="text" value="dent" aria-label="Search" readonly
+            style="border-color:var(--bupa-blue); box-shadow:0 0 0 3px rgba(0,169,206,0.22);" />
+          <button class="m-search-clear" type="button" aria-label="Clear">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="m-result-sheet">
+        <p class="section-subhead">Suggestions for "dent"</p>
+        <div class="m-result-item">
+          <div class="m-result-item__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+          <div class="m-result-item__text">
+            <p class="m-result-item__title"><mark>Dent</mark>al insurance</p>
+            <p class="m-result-item__sub">Plans from £8/month</p>
+          </div>
+          <span class="m-result-item__chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+        <div class="m-result-item">
+          <div class="m-result-item__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <div class="m-result-item__text">
+            <p class="m-result-item__title"><mark>Dent</mark>ist finder</p>
+            <p class="m-result-item__sub">Find a Bupa <mark>dent</mark>ist near you</p>
+          </div>
+          <span class="m-result-item__chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+        <div class="m-result-item">
+          <div class="m-result-item__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+          <div class="m-result-item__text">
+            <p class="m-result-item__title"><mark>Dent</mark>al health tips</p>
+            <p class="m-result-item__sub">Guides &amp; resources</p>
+          </div>
+          <span class="m-result-item__chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+      </div>
+    </div>
+    <p class="state-meta">Live autocomplete · matched text highlighted · clear button visible</p>
+  </div>
+
+
+  <!-- ════════ STATE 4: LOADING — skeleton ════════ -->
+  <div class="ds-section">
+    <p class="ds-section-title">4 · Loading — Searching</p>
+    <div class="phone-frame">
+      <div class="m-search-bar">
+        <button class="m-search-back" type="button" aria-label="Close search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="m-search-field">
+          <span class="m-search-field__icon" aria-hidden="true" style="color:var(--bupa-grey-60);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </span>
+          <input class="m-search-input" type="text" value="Private health insurance" aria-label="Search" readonly
+            style="border-color:var(--bupa-grey-30);" aria-busy="true" />
+          <button class="m-search-clear" type="button" aria-label="Clear">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="m-result-sheet" aria-busy="true" role="status" aria-label="Loading results">
+        <div class="m-skel-item">
+          <div class="skeleton m-skel-icon"></div>
+          <div class="m-skel-lines"><div class="skeleton m-skel-title"></div><div class="skeleton m-skel-sub"></div></div>
+        </div>
+        <div class="m-skel-item">
+          <div class="skeleton m-skel-icon"></div>
+          <div class="m-skel-lines"><div class="skeleton m-skel-title" style="width:55%"></div><div class="skeleton m-skel-sub" style="width:35%"></div></div>
+        </div>
+        <div class="m-skel-item">
+          <div class="skeleton m-skel-icon"></div>
+          <div class="m-skel-lines"><div class="skeleton m-skel-title" style="width:80%"></div><div class="skeleton m-skel-sub" style="width:50%"></div></div>
+        </div>
+        <div class="m-skel-item">
+          <div class="skeleton m-skel-icon"></div>
+          <div class="m-skel-lines"><div class="skeleton m-skel-title" style="width:60%"></div><div class="skeleton m-skel-sub" style="width:40%"></div></div>
+        </div>
+      </div>
+    </div>
+    <p class="state-meta">Shimmer skeleton · aria-busy on results container · input read-only while loading</p>
+  </div>
+
+
+  <!-- ════════ STATE 5: RESULTS FOUND ════════ -->
+  <div class="ds-section">
+    <p class="ds-section-title">5 · Results Found</p>
+    <div class="phone-frame">
+      <div class="m-search-bar">
+        <button class="m-search-back" type="button" aria-label="Close search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="m-search-field">
+          <span class="m-search-field__icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </span>
+          <input class="m-search-input" type="text" value="Health insurance" aria-label="Search" readonly
+            style="border-color:var(--bupa-grey-80);" />
+          <button class="m-search-clear" type="button" aria-label="Clear">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="m-result-sheet">
+        <div style="padding:10px 16px 6px; font-size:0.75rem; color:var(--bupa-grey-60);">12 results for <strong style="color:var(--bupa-text);">"Health insurance"</strong></div>
+        <div class="m-result-item">
+          <div class="m-result-item__icon" style="background:#E5F6FB;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007EA8" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+          <div class="m-result-item__text">
+            <p class="m-result-item__title">Personal health insurance</p>
+            <p class="m-result-item__sub">Cover from £24.60/month</p>
+          </div>
+          <span class="m-result-item__chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+        <div class="m-result-item">
+          <div class="m-result-item__icon" style="background:#E5F6FB;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007EA8" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="m-result-item__text">
+            <p class="m-result-item__title">Family health insurance</p>
+            <p class="m-result-item__sub">Protect your whole family</p>
+          </div>
+          <span class="m-result-item__chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+        <div class="m-result-item">
+          <div class="m-result-item__icon" style="background:#E5F6FB;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007EA8" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+          <div class="m-result-item__text">
+            <p class="m-result-item__title">Business health insurance</p>
+            <p class="m-result-item__sub">For teams of 2 or more</p>
+          </div>
+          <span class="m-result-item__chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </div>
+        <div style="padding:12px 16px; text-align:center;">
+          <button type="button" style="font-family:var(--font-body); font-size:0.875rem; font-weight:600; color:var(--bupa-blue-dark); background:none; border:none; cursor:pointer;">Show all 12 results →</button>
+        </div>
+      </div>
+    </div>
+    <p class="state-meta">Result count · icon per category · chevron affordance · "show all" link</p>
+  </div>
+
+
+  <!-- ════════ STATE 6: NO RESULTS / EMPTY ════════ -->
+  <div class="ds-section">
+    <p class="ds-section-title">6 · No Results</p>
+    <div class="phone-frame">
+      <div class="m-search-bar">
+        <button class="m-search-back" type="button" aria-label="Close search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="m-search-field">
+          <span class="m-search-field__icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </span>
+          <input class="m-search-input" type="text" value="xkcd coverage" aria-label="Search" readonly
+            style="border-color:var(--bupa-grey-80);" aria-describedby="no-results-msg" />
+          <button class="m-search-clear" type="button" aria-label="Clear">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="m-result-sheet">
+        <div class="m-empty" id="no-results-msg" role="status">
+          <div class="m-empty__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <p class="m-empty__title">No results found</p>
+          <p class="m-empty__body">We couldn't find anything for "xkcd coverage". Try a different search term.</p>
+          <button type="button" style="margin-top:8px; height:40px; padding:0 20px; border-radius:100px; border:none; background:var(--bupa-blue); color:#fff; font-family:var(--font-body); font-size:0.875rem; font-weight:600; cursor:pointer;">Browse all products</button>
+        </div>
+      </div>
+    </div>
+    <p class="state-meta">Friendly empty state · user query echoed · recovery action CTA</p>
+  </div>
+
+
+  <!-- ════════ STATE 7: ERROR ════════ -->
+  <div class="ds-section">
+    <p class="ds-section-title">7 · Error — Network / server fail</p>
+    <div class="phone-frame">
+      <div class="m-search-bar">
+        <button class="m-search-back" type="button" aria-label="Close search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="m-search-field">
+          <span class="m-search-field__icon" aria-hidden="true" style="color:var(--bupa-error);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </span>
+          <input class="m-search-input" type="text" value="Health cover" aria-label="Search" readonly
+            style="border-color:var(--bupa-error); background:#FFF2F4;" aria-invalid="true" aria-describedby="error-msg" />
+          <button class="m-search-clear" type="button" aria-label="Clear">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="m-result-sheet">
+        <div class="m-error-banner" id="error-msg" role="alert">
+          <span class="m-error-banner__icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </span>
+          <div>
+            <p style="font-weight:600; margin-bottom:2px;">Something went wrong</p>
+            <p style="color:var(--bupa-grey-80);">We couldn't complete your search. Please check your connection and try again.</p>
+          </div>
+        </div>
+        <div style="padding:16px; display:flex; gap:10px;">
+          <button type="button" style="flex:1; height:44px; border-radius:100px; border:none; background:var(--bupa-error); color:#fff; font-family:var(--font-body); font-size:0.9rem; font-weight:600; cursor:pointer;">Try again</button>
+          <button type="button" style="height:44px; padding:0 18px; border-radius:100px; border:1.5px solid var(--bupa-grey-30); background:transparent; color:var(--bupa-grey-80); font-family:var(--font-body); font-size:0.9rem; font-weight:600; cursor:pointer;">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <p class="state-meta">Red border + light red bg · error banner with icon · retry + cancel actions</p>
+  </div>
+
+
+  <!-- ════════ STATE 8: VOICE / MIC LISTENING ════════ -->
+  <div class="ds-section">
+    <p class="ds-section-title">8 · Voice — Listening</p>
+    <div class="phone-frame">
+      <div class="m-search-bar">
+        <button class="m-search-back" type="button" aria-label="Close search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="m-search-field">
+          <span class="m-search-field__icon" aria-hidden="true" style="color:var(--bupa-blue);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </span>
+          <input class="m-search-input" type="text" placeholder="Listening…" aria-label="Voice search active" readonly
+            style="border-color:var(--bupa-blue); box-shadow:0 0 0 3px rgba(0,169,206,0.22); font-style:italic; color:var(--bupa-grey-60);" />
+        </div>
+      </div>
+      <div class="m-voice-modal" role="dialog" aria-label="Voice search" aria-live="polite">
+        <p style="font-size:0.75rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--bupa-grey-60);">Listening</p>
+        <div class="m-voice-ring-wrap">
+          <div class="m-voice-ring"></div>
+          <button class="m-voice-btn" type="button" aria-label="Stop listening">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          </button>
+        </div>
+        <p class="m-voice-label">Say something…</p>
+        <p class="m-voice-sublabel">Try "Show me dental cover" or "Family health insurance"</p>
+        <button class="m-voice-cancel" type="button">Cancel</button>
+      </div>
+    </div>
+    <p class="state-meta">Full-sheet voice modal · pulse ring animation · mic button to stop · example prompts</p>
+  </div>
+
+
+  <!-- ════════ STATE 9: DISABLED ════════ -->
+  <div class="ds-section">
+    <p class="ds-section-title">9 · Disabled</p>
+    <div class="phone-frame">
+      <div class="app-bar">
+        <div class="app-bar__title">Find health cover</div>
+      </div>
+      <div class="m-search-bar" style="opacity:0.55; pointer-events:none;">
+        <div class="m-search-field">
+          <span class="m-search-field__icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </span>
+          <input class="m-search-input" type="text" placeholder="Search unavailable" aria-label="Search" disabled
+            style="background:var(--bupa-grey-10); border-color:transparent; cursor:not-allowed;" />
+        </div>
+      </div>
+      <div style="padding:16px; font-size:0.8125rem; color:var(--bupa-grey-60); text-align:center; background:var(--bupa-white);">
+        Search is temporarily unavailable
+      </div>
+    </div>
+    <p class="state-meta">50% opacity on bar · input disabled · helper text explains why</p>
+  </div>
+
+
+  <!-- ════════ COLOUR TOKENS ════════ -->
+  <div class="ds-section">
+    <p class="ds-section-title">Component Colour Tokens</p>
+    <div class="colour-grid">
+      <div class="colour-chip"><div class="colour-chip__swatch" style="background:#003057;"></div><div class="colour-chip__info"><p class="colour-chip__name">App Bar</p><p class="colour-chip__hex">#003057</p></div></div>
+      <div class="colour-chip"><div class="colour-chip__swatch" style="background:#00A9CE;"></div><div class="colour-chip__info"><p class="colour-chip__name">Focus / Active</p><p class="colour-chip__hex">#00A9CE</p></div></div>
+      <div class="colour-chip"><div class="colour-chip__swatch" style="background:#007EA8;"></div><div class="colour-chip__info"><p class="colour-chip__name">Blue Dark</p><p class="colour-chip__hex">#007EA8</p></div></div>
+      <div class="colour-chip"><div class="colour-chip__swatch" style="background:#E5F6FB; border:1px solid #B3BAC0;"></div><div class="colour-chip__info"><p class="colour-chip__name">Result Icon BG</p><p class="colour-chip__hex">#E5F6FB</p></div></div>
+      <div class="colour-chip"><div class="colour-chip__swatch" style="background:#D0021B;"></div><div class="colour-chip__info"><p class="colour-chip__name">Error</p><p class="colour-chip__hex">#D0021B</p></div></div>
+      <div class="colour-chip"><div class="colour-chip__swatch" style="background:#F5F6F7; border:1px solid #E8EAEC;"></div><div class="colour-chip__info"><p class="colour-chip__name">Input Resting BG</p><p class="colour-chip__hex">#F5F6F7</p></div></div>
+    </div>
+  </div>
+
+
+  <!-- ════════ SIZING TOKENS ════════ -->
+  <div class="ds-section">
+    <p class="ds-section-title">Mobile Sizing Tokens</p>
+    <div class="token-row">
+      <span class="token-name">Touch target height</span>
+      <span class="token-value">52px (min 44px)</span>
+    </div>
+    <div class="token-row">
+      <span class="token-name">Border radius — pill</span>
+      <span class="token-value">100px</span>
+    </div>
+    <div class="token-row">
+      <span class="token-name">Border width — focus</span>
+      <span class="token-value">2px + 3px ring @ 22% opacity</span>
+    </div>
+    <div class="token-row">
+      <span class="token-name">Left / right icon padding</span>
+      <span class="token-value">14px</span>
+    </div>
+    <div class="token-row">
+      <span class="token-name">Clear button</span>
+      <span class="token-value">28 × 28px · border-radius: 50%</span>
+    </div>
+    <div class="token-row">
+      <span class="token-name">Back / mic icon buttons</span>
+      <span class="token-value">40 × 40px · border-radius: 50%</span>
+    </div>
+    <div class="token-row">
+      <span class="token-name">Voice mic button (modal)</span>
+      <span class="token-value">64 × 64px</span>
+    </div>
+  </div>
+
+
+</main>
+</body>
+</html>
