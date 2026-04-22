@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Bupa Pay As You Go Redesign — End-to-end redesign of 20+ pages combining qualitative and quantitative insight to improve trust, clarity, and commercial performance." />
+  <title>Bupa Pay As You Go Redesign · Amruta Inamdar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles-v3.css" />
+  <style>
+    /* ── Case Study overrides ── */
+    .cs-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      transition: color var(--transition);
+    }
+    .cs-back:hover { color: var(--accent); opacity: 1; }
+    .cs-back svg { width: 16px; height: 16px; stroke: currentColor; fill: none; flex-shrink: 0; }
+
+    /* Hero */
+    #cs-hero {
+      padding-top: 7rem;
+      padding-bottom: 5rem;
+      background: var(--bg-primary);
+    }
+
+    .cs-hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .cs-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .cs-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .cs-meta-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .cs-meta-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .cs-impact-strip {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .cs-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .cs-stat-num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .cs-stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .cs-hero-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Section shared */
+    .cs-section {
+      padding: 5rem 0;
+    }
+
+    .cs-section:nth-child(even) {
+      background: var(--bg-secondary);
+    }
+
+    /* Challenge */
+    .challenge-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .challenge-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+      position: relative;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .challenge-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(108, 63, 200, 0.08);
+    }
+
+    .challenge-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-2));
+      border-radius: 3px 0 0 3px;
+    }
+
+    .challenge-item h4 {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+    }
+
+    .challenge-item p {
+      font-size: 0.875rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+    }
+
+    /* Process phases */
+    .phases-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .phase-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .phase-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(108, 63, 200, 0.1);
+    }
+
+    .phase-number {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 0.25rem 0.65rem;
+      border-radius: 100px;
+      margin-bottom: 0.85rem;
+    }
+
+    .phase-card h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .phase-card p {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    .phase-findings {
+      margin-top: 1rem;
+      list-style: none;
+    }
+
+    .phase-findings li {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      padding-left: 1rem;
+      position: relative;
+      margin-bottom: 0.35rem;
+      line-height: 1.5;
+    }
+
+    .phase-findings li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--accent-2);
+      font-weight: 900;
+      font-size: 1.1rem;
+      line-height: 1.3;
+    }
+
+    /* Outcome cards */
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+
+    .outcome-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .outcome-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(108, 63, 200, 0.08);
+    }
+
+    .outcome-num {
+      font-size: 2.6rem;
+      font-weight: 800;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      flex-shrink: 0;
+      min-width: 56px;
+      text-align: center;
+    }
+
+    .outcome-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .outcome-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .outcome-icon--up {
+      background: rgba(34, 197, 94, 0.1);
+    }
+
+    .outcome-icon--up svg {
+      stroke: #16a34a;
+    }
+
+    .outcome-icon--down {
+      background: rgba(108, 63, 200, 0.1);
+    }
+
+    .outcome-icon--down svg {
+      stroke: var(--accent);
+    }
+
+    .outcome-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .outcome-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Impact */
+    .impact-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .impact-metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+
+    .impact-metric-num {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .impact-metric-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .impact-results {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .result-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+
+    .result-block h4 {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .result-block ul {
+      list-style: none;
+    }
+
+    .result-block li {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      padding-left: 1rem;
+      position: relative;
+      margin-bottom: 0.5rem;
+      line-height: 1.55;
+    }
+
+    .result-block li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 900;
+      font-size: 1.1rem;
+      line-height: 1.3;
+    }
+
+    /* Insights */
+    .insights-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .insight-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .insight-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 36px rgba(108, 63, 200, 0.09);
+    }
+
+    .insight-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--accent-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .insight-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--accent);
+      fill: none;
+    }
+
+    .insight-card h3 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .insight-card p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* Case nav */
+    .cs-nav-footer {
+      padding: 4rem 0;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+    }
+
+    .cs-nav-links {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .cs-nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+
+    .cs-nav-link:hover { color: var(--accent); opacity: 1; }
+    .cs-nav-link svg { width: 18px; height: 18px; stroke: currentColor; fill: none; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .cs-hero-inner { grid-template-columns: 1fr; }
+      .cs-hero-visual { display: none; }
+      .challenge-list { grid-template-columns: 1fr; }
+      .phases-grid { grid-template-columns: 1fr; }
+      .impact-metrics { grid-template-columns: 1fr 1fr; }
+      .outcome-grid { grid-template-columns: 1fr; }
+      .impact-results { grid-template-columns: 1fr; }
+      .insights-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .impact-metrics { grid-template-columns: 1fr; }
+      .cs-impact-strip { gap: 1.25rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── Nav ── -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">Amruta Inamdar</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Case Study Hero ── -->
+  <section id="cs-hero">
+    <div class="container">
+
+      <a href="index.html#work" class="cs-back">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+        </svg>
+        Back to Portfolio
+      </a>
+
+      <div class="cs-hero-inner">
+
+        <!-- Left: text -->
+        <div>
+          <div class="card-tags" style="margin-bottom:1rem;">
+            <span class="card-tag">UX / UI</span>
+            <span class="card-tag">User Research</span>
+            <span class="card-tag">Service Design</span>
+            <span class="card-tag">Mobile First</span>
+            <span class="card-tag">Bupa</span>
+          </div>
+
+          <h1 style="font-size:clamp(2.2rem,5vw,4rem);margin-bottom:1rem;">Bupa Pay As You Go<br>Redesign</h1>
+
+          <p style="font-size:1.15rem;line-height:1.75;max-width:520px;">From fragmented pages to a unified patient journey — how combining qualitative research with quantitative insight drove trust, clarity, and commercial performance across 21 service pages.</p>
+
+          <div class="cs-impact-strip">
+            <div class="cs-stat">
+              <span class="cs-stat-num">21</span>
+              <span class="cs-stat-label">Pages redesigned end-to-end</span>
+            </div>
+            <div class="cs-stat">
+              <span class="cs-stat-num">↑</span>
+              <span class="cs-stat-label">Click-through & conversion rates</span>
+            </div>
+            <div class="cs-stat">
+              <span class="cs-stat-num">↓</span>
+              <span class="cs-stat-label">Funnel abandonment</span>
+            </div>
+          </div>
+
+          <div class="cs-meta-row">
+            <div class="cs-meta-item">
+              <span class="cs-meta-label">Role</span>
+              <span class="cs-meta-value">Product Designer (UI · UX)</span>
+            </div>
+            <div class="cs-meta-item">
+              <span class="cs-meta-label">Timeline</span>
+              <span class="cs-meta-value">7 months</span>
+            </div>
+            <div class="cs-meta-item">
+              <span class="cs-meta-label">Company</span>
+              <span class="cs-meta-value">Bupa</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: visual -->
+        <div class="cs-hero-visual">
+          <svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;height:auto;">
+            <rect width="480" height="320" rx="16" fill="rgba(108,63,200,0.04)" />
+            <!-- Left phone frame (before) -->
+            <rect x="20" y="20" width="180" height="280" rx="22" fill="rgba(108,63,200,0.07)" stroke="rgba(108,63,200,0.4)" stroke-width="1.5" />
+            <rect x="85" y="27" width="50" height="8" rx="4" fill="rgba(108,63,200,0.4)" />
+            <rect x="28" y="44" width="164" height="248" rx="16" fill="rgba(108,63,200,0.05)" />
+            <!-- Before: header -->
+            <rect x="28" y="44" width="164" height="34" rx="16" fill="rgba(108,63,200,0.22)" />
+            <rect x="40" y="55" width="65" height="8" rx="3" fill="rgba(255,255,255,0.6)" />
+            <rect x="168" y="53" width="16" height="8" rx="3" fill="rgba(224,64,160,0.7)" />
+            <!-- Before: messy content blocks -->
+            <rect x="36" y="86" width="148" height="40" rx="6" fill="rgba(255,255,255,0.1)" stroke="rgba(108,63,200,0.15)" stroke-width="1" />
+            <rect x="44" y="94" width="80" height="6" rx="2" fill="rgba(255,255,255,0.4)" />
+            <rect x="44" y="105" width="110" height="4" rx="2" fill="rgba(255,255,255,0.2)" />
+            <rect x="44" y="114" width="90" height="4" rx="2" fill="rgba(255,255,255,0.15)" />
+            <!-- Before: scattered elements -->
+            <rect x="36" y="134" width="68" height="28" rx="5" fill="rgba(108,63,200,0.12)" stroke="rgba(108,63,200,0.2)" stroke-width="1" />
+            <rect x="112" y="134" width="72" height="28" rx="5" fill="rgba(224,64,160,0.08)" stroke="rgba(224,64,160,0.18)" stroke-width="1" />
+            <rect x="44" y="141" width="50" height="5" rx="2" fill="rgba(255,255,255,0.35)" />
+            <rect x="120" y="141" width="55" height="5" rx="2" fill="rgba(255,255,255,0.35)" />
+            <rect x="44" y="150" width="38" height="5" rx="2" fill="rgba(255,255,255,0.2)" />
+            <rect x="120" y="150" width="44" height="5" rx="2" fill="rgba(255,255,255,0.18)" />
+            <!-- Before: buried CTA -->
+            <rect x="36" y="170" width="148" height="18" rx="5" fill="rgba(108,63,200,0.15)" stroke="rgba(108,63,200,0.3)" stroke-width="1" />
+            <rect x="68" y="175" width="84" height="7" rx="3" fill="rgba(255,255,255,0.3)" />
+            <rect x="36" y="196" width="148" height="40" rx="6" fill="rgba(255,255,255,0.06)" stroke="rgba(108,63,200,0.1)" stroke-width="1" />
+            <rect x="44" y="204" width="95" height="5" rx="2" fill="rgba(255,255,255,0.3)" />
+            <rect x="44" y="213" width="110" height="4" rx="2" fill="rgba(255,255,255,0.18)" />
+            <rect x="44" y="222" width="75" height="4" rx="2" fill="rgba(255,255,255,0.12)" />
+            <rect x="36" y="244" width="148" height="38" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(108,63,200,0.08)" stroke-width="1" />
+            <!-- Before label -->
+            <text x="110" y="300" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" font-weight="700" fill="rgba(108,63,200,0.5)" letter-spacing="0.08em">BEFORE</text>
+
+            <!-- Arrow -->
+            <line x1="213" y1="160" x2="243" y2="160" stroke="rgba(108,63,200,0.5)" stroke-width="2" />
+            <path d="M239 154 L246 160 L239 166" fill="none" stroke="rgba(108,63,200,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+            <!-- Right phone frame (after) -->
+            <rect x="258" y="20" width="202" height="280" rx="22" fill="rgba(224,64,160,0.05)" stroke="rgba(224,64,160,0.4)" stroke-width="1.5" />
+            <rect x="334" y="27" width="50" height="8" rx="4" fill="rgba(224,64,160,0.4)" />
+            <rect x="266" y="44" width="186" height="248" rx="16" fill="rgba(224,64,160,0.03)" />
+            <!-- After: clean header -->
+            <rect x="266" y="44" width="186" height="38" rx="16" fill="rgba(224,64,160,0.18)" />
+            <rect x="278" y="57" width="75" height="8" rx="3" fill="rgba(255,255,255,0.65)" />
+            <rect x="428" y="55" width="16" height="8" rx="3" fill="rgba(108,63,200,0.7)" />
+            <!-- After: hero value prop -->
+            <rect x="274" y="90" width="172" height="56" rx="8" fill="rgba(255,255,255,0.12)" stroke="rgba(224,64,160,0.2)" stroke-width="1" />
+            <rect x="282" y="99" width="60" height="6" rx="2" fill="rgba(224,64,160,0.6)" />
+            <rect x="282" y="110" width="140" height="10" rx="4" fill="rgba(255,255,255,0.6)" />
+            <rect x="282" y="125" width="110" height="5" rx="2" fill="rgba(224,64,160,0.3)" />
+            <rect x="282" y="134" width="80" height="5" rx="2" fill="rgba(224,64,160,0.2)" />
+            <!-- After: trust signals -->
+            <rect x="274" y="154" width="82" height="44" rx="8" fill="rgba(255,255,255,0.1)" stroke="rgba(108,63,200,0.12)" stroke-width="1" />
+            <rect x="364" y="154" width="82" height="44" rx="8" fill="rgba(255,255,255,0.1)" stroke="rgba(224,64,160,0.12)" stroke-width="1" />
+            <rect x="282" y="163" width="50" height="5" rx="2" fill="rgba(255,255,255,0.45)" />
+            <rect x="282" y="172" width="36" height="10" rx="3" fill="rgba(108,63,200,0.5)" />
+            <rect x="282" y="185" width="55" height="4" rx="2" fill="rgba(255,255,255,0.25)" />
+            <rect x="372" y="163" width="50" height="5" rx="2" fill="rgba(255,255,255,0.45)" />
+            <rect x="372" y="172" width="36" height="10" rx="3" fill="rgba(224,64,160,0.5)" />
+            <rect x="372" y="185" width="45" height="4" rx="2" fill="rgba(255,255,255,0.25)" />
+            <!-- After: clear service list -->
+            <rect x="274" y="206" width="172" height="14" rx="4" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+            <rect x="282" y="210" width="75" height="5" rx="2" fill="rgba(255,255,255,0.45)" />
+            <rect x="408" y="209" width="28" height="7" rx="3" fill="rgba(224,64,160,0.35)" />
+            <rect x="274" y="226" width="172" height="14" rx="4" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+            <rect x="282" y="230" width="60" height="5" rx="2" fill="rgba(255,255,255,0.4)" />
+            <rect x="408" y="229" width="28" height="7" rx="3" fill="rgba(108,63,200,0.3)" />
+            <rect x="274" y="246" width="172" height="14" rx="4" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+            <rect x="282" y="250" width="70" height="5" rx="2" fill="rgba(255,255,255,0.35)" />
+            <!-- After: prominent CTA -->
+            <rect x="274" y="268" width="172" height="16" rx="8" fill="rgba(224,64,160,0.55)" stroke="rgba(224,64,160,0.75)" stroke-width="1" />
+            <rect x="316" y="272" width="88" height="7" rx="3" fill="rgba(255,255,255,0.7)" />
+            <!-- After label -->
+            <text x="359" y="300" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" font-weight="700" fill="rgba(224,64,160,0.55)" letter-spacing="0.08em">AFTER</text>
+          </svg>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Challenge ── -->
+  <section class="cs-section" style="background:var(--bg-secondary);">
+    <div class="container">
+      <p class="section-label">Problem Space</p>
+      <h2 class="section-title">The Problem to Solve</h2>
+      <p class="section-intro">Current pages failed to communicate value, guide users toward booking, or build the confidence needed for healthcare purchasing decisions.</p>
+
+      <ul class="challenge-list">
+        <li class="challenge-item">
+          <h4>Low Conversion &amp; Unclear Journey Flow</h4>
+          <p>Pages failed to communicate value or guide users toward booking, resulting in below-par conversion rates and engagement metrics.</p>
+        </li>
+        <li class="challenge-item">
+          <h4>Poor Usability &amp; Fragmented Page Design</h4>
+          <p>Disconnected pages with unclear navigation created friction in information discovery and task completion across the experience.</p>
+        </li>
+        <li class="challenge-item">
+          <h4>Lack of User Trust &amp; Confidence</h4>
+          <p>Insufficient service information and aftercare messaging undermined credibility in a context where trust is essential to healthcare purchasing.</p>
+        </li>
+        <li class="challenge-item">
+          <h4>No Cohesive, User-Validated Experience</h4>
+          <p>Absence of journey mapping and consistent patterns caused funnel abandonment — each page felt disconnected from the next.</p>
+        </li>
+        <li class="challenge-item">
+          <h4>Fragmented Price Comparison</h4>
+          <p>Service details were scattered across dropdowns with booking links buried across disconnected pages, making comparison near-impossible.</p>
+        </li>
+        <li class="challenge-item">
+          <h4>Poor Scanability &amp; Side-by-Side Comparison</h4>
+          <p>Users could not compare services side-by-side, requiring repeated scrolling and creating unnecessary cognitive load.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Process ── -->
+  <section class="cs-section" style="background:var(--bg-primary);">
+    <div class="container">
+      <p class="section-label">Approach</p>
+      <h2 class="section-title">From Insight to Impact</h2>
+      <p class="section-intro">A structured, research-led process that expanded from isolated page fixes to a unified end-to-end experience across the platform.</p>
+
+      <div class="phases-grid">
+
+        <div class="phase-card">
+          <span class="phase-number">Phase 01</span>
+          <h3>Discovery &amp; Research</h3>
+          <p>Conducted qualitative and quantitative research to surface user needs, pain points, and task flows. Analysed drop-off data, ran customer interviews, and mapped existing journeys to identify where trust and clarity broke down.</p>
+          <ul class="phase-findings">
+            <li>Identified high exit rates on service detail pages</li>
+            <li>Users cited unclear pricing and aftercare as primary blockers</li>
+            <li>Heatmaps revealed booking CTAs were being missed entirely</li>
+            <li>Regulatory and clinical requirements documented early</li>
+          </ul>
+        </div>
+
+        <div class="phase-card">
+          <span class="phase-number">Phase 02</span>
+          <h3>Collaborative Workshops</h3>
+          <p>Facilitated workshops mapping user needs, task flows, and regulatory requirements across stakeholder groups. Journey mapping sessions brought clinical, marketing, and engineering perspectives into alignment early, preventing rework downstream.</p>
+          <ul class="phase-findings">
+            <li>Cross-functional journey mapping sessions</li>
+            <li>Design sprint to rapidly validate IA approaches</li>
+            <li>Stakeholder alignment on trust and clinical content requirements</li>
+          </ul>
+        </div>
+
+        <div class="phase-card">
+          <span class="phase-number">Phase 03</span>
+          <h3>Prototyping &amp; Validation</h3>
+          <p>Built interactive prototypes to test the redesigned information architecture and page patterns. User testing validated the new structure before any code was written, reducing costly iteration cycles in production.</p>
+          <ul class="phase-findings">
+            <li>Moderated usability testing with target patient cohorts</li>
+            <li>Iterated on price comparison table design across 3 rounds</li>
+            <li>A/B tested trust signal placements on landing page</li>
+            <li>Mobile-first prototypes tested on actual devices</li>
+          </ul>
+        </div>
+
+        <div class="phase-card">
+          <span class="phase-number">Phase 04</span>
+          <h3>Design &amp; Delivery</h3>
+          <p>Designed the full suite of 21 service pages using validated patterns, reusable components, and consistent design tokens. Collaborated closely with developers throughout delivery to ensure fidelity and maintain design intent across the responsive breakpoints.</p>
+          <ul class="phase-findings">
+            <li>Redesigned landing page + 21 PAYG service pages</li>
+            <li>Unified price comparison table replacing scattered dropdowns</li>
+            <li>Clinical evidence and aftercare integrated into page templates</li>
+            <li>Mobile-first delivery across all breakpoints</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Impact ── -->
+  <section class="cs-section" style="background:var(--bg-secondary);">
+    <div class="container">
+      <p class="section-label">Outcomes</p>
+      <h2 class="section-title">Measurable Impact</h2>
+      <p class="section-intro">Post-launch metrics validated the research-backed approach, with improvements across the full commercial and user experience funnel.</p>
+
+      <div class="outcome-grid">
+        <div class="outcome-card">
+          <div class="outcome-num">21</div>
+          <div class="outcome-body">
+            <div class="outcome-title">Pages Redesigned</div>
+            <div class="outcome-desc">End-to-end redesign of landing page and all PAYG service pages</div>
+          </div>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-num">7</div>
+          <div class="outcome-body">
+            <div class="outcome-title">Months · Full Delivery</div>
+            <div class="outcome-desc">Discovery through to validated, shipped product across all breakpoints</div>
+          </div>
+        </div>
+        <div class="outcome-card outcome-card--positive">
+          <div class="outcome-icon outcome-icon--up">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" /></svg>
+          </div>
+          <div class="outcome-body">
+            <div class="outcome-title">Click-through &amp; Purchase Rates</div>
+            <div class="outcome-desc">Increased post-launch across service pages validated by analytics</div>
+          </div>
+        </div>
+        <div class="outcome-card outcome-card--negative">
+          <div class="outcome-icon outcome-icon--down">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.51-5.511-3.181" /></svg>
+          </div>
+          <div class="outcome-body">
+            <div class="outcome-title">Funnel Abandonment &amp; Drop-off</div>
+            <div class="outcome-desc">Reduced across the journey with lower exit rates and faster task completion</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="impact-results">
+        <div class="result-block">
+          <h4>Quantitative Results</h4>
+          <ul>
+            <li>Increased purchases and click-through rates post-launch</li>
+            <li>Reduced funnel abandonment across service pages</li>
+            <li>Faster action completion times measured via session recordings</li>
+            <li>Higher task completion rates in follow-up usability studies</li>
+          </ul>
+        </div>
+        <div class="result-block">
+          <h4>Qualitative Results</h4>
+          <ul>
+            <li>Higher satisfaction and trust scores validated post-launch</li>
+            <li>Users described the new experience as "clear" and "reassuring"</li>
+            <li>Clinical and aftercare content directly attributed to reduced uncertainty</li>
+            <li>Consistent patterns across 21 pages accelerated user navigation confidence</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Key Insights ── -->
+  <section class="cs-section" style="background:var(--bg-primary);">
+    <div class="container">
+      <p class="section-label">Reflections</p>
+      <h2 class="section-title">Key Insights &amp; Learnings</h2>
+      <p class="section-intro">What the project reinforced about designing digital healthcare experiences at scale.</p>
+
+      <div class="insights-grid">
+
+        <div class="insight-card">
+          <div class="insight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z" />
+            </svg>
+          </div>
+          <h3>Empathy and Speed Aren't Opposing Forces</h3>
+          <p>Clear, human tone of voice combined with fast task completion improved both satisfaction scores and conversion. Designing for emotional confidence and functional efficiency aren't competing goals — they reinforce each other.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+            </svg>
+          </div>
+          <h3>Research-Backed Architecture Delivers ROI</h3>
+          <p>User-validated information architecture and navigation reduced time-to-key-actions and exits. The upfront investment in workshops and testing paid back through fewer post-launch iterations and measurable commercial uplift.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+            </svg>
+          </div>
+          <h3>Consistent Patterns Build Confidence</h3>
+          <p>Recognisable layouts and consistent behaviours across 21 pages accelerated user movement through the funnel and increased journey trust. Once users understood one page, every subsequent page felt familiar — reducing decision fatigue.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" />
+            </svg>
+          </div>
+          <h3>Trust Drives Conversions</h3>
+          <p>Addressing clinical evidence, aftercare content, and pricing transparency directly reduced user uncertainty and drove purchases. In healthcare, trust isn't a nice-to-have — it's a prerequisite to any commercial action.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Case Study Navigation ── -->
+  <div class="cs-nav-footer">
+    <div class="container">
+      <div class="cs-nav-links">
+        <a href="index.html#work" class="cs-nav-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+          </svg>
+          Back to Portfolio
+        </a>
+        <a href="email-pattern-system.html" class="cs-nav-link">
+          Next: Email Pattern Design System
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container footer-inner">
+      <p class="footer-copy">&copy; 2025 Amruta Inamdar. All rights reserved.</p>
+      <div class="footer-li">
+        <a href="https://www.linkedin.com/in/amrutainamdar" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+          </svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+  </script>
+
+</body>
+</html>

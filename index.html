@@ -1,525 +1,598 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Amruta Inamdar — Senior Product Designer specialising in Design Systems, UX/UI, and Accessibility." />
+  <meta name="description"
+    content="Amruta Inamdar — Senior Product Designer specialising in Design Systems, UX/UI, and Accessibility." />
   <title>Amruta Inamdar · Product Designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles-v3.css" />
 </head>
+
 <body>
 
-<!-- ── Nav ── -->
-<nav>
-  <div class="container nav-inner">
-    <a href="#hero" class="nav-logo">Amruta Inamdar</a>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
+  <!-- ── Nav ── -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="#hero" class="nav-logo">Amruta Inamdar</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
 
-<!-- ── Hero ── -->
-<section id="hero">
-  <div class="container">
-    <div class="hero-content">
-      <span class="hero-eyebrow">Product Designer · United Kingdom</span>
-      <h1 class="hero-title">Amruta<br>Inamdar</h1>
-      <p class="hero-subtitle">Design Systems &nbsp;·&nbsp; UX/UI &nbsp;·&nbsp; Accessibility</p>
-      <p class="hero-tagline">Strategic designer with 10+ years building scalable design systems, bridging design and engineering, and embedding accessibility into product workflows.</p>
+  <!-- ── Hero + About (combined) ── -->
+  <section id="hero" style="padding-top:5rem;padding-bottom:5rem;">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;">
 
-      <div class="hero-actions">
-        <a href="#work" class="btn btn-primary">View My Work</a>
-        <a href="https://www.linkedin.com/in/amrutainamdar" target="_blank" rel="noopener" class="btn btn-outline">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px;fill:currentColor;flex-shrink:0"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        <!-- Left: text content -->
+        <div style="text-align:left;">
+          <span
+            style="display:inline-block;background:rgba(108,63,200,0.1);color:rgb(108,63,200);padding:0.35rem 1rem;border-radius:99px;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1.5rem;">Product
+            Designer · United Kingdom</span>
+          <h1 class="hero-title">Amruta Inamdar</h1>
+          <p class="hero-tagline">I'm , a Strategic Product Designer with 10+ years of experience
+            specialising in design systems, interaction design, and front-end fluent UX, designing with scale in mind so
+            product teams ship consistently and confidently.</p>
+          <div class="hero-actions">
+            <a href="#work" class="btn btn-primary">View My Work</a>
+            <a href="https://www.linkedin.com/in/amrutainamdar" target="_blank" rel="noopener" class="btn btn-outline">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"
+                style="width:16px;height:16px;fill:currentColor;flex-shrink:0">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: illustration -->
+        <div style="width:100%;display:flex;align-items:center;justify-content:center;">
+          <img src="undraw_adventure-map_3e4p.svg" alt="Designer at work illustration"
+            style="width:100%;height:auto;display:block;" />
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Skills ── -->
+  <section id="skills">
+    <div class="container">
+      <p class="section-label">Expertise</p>
+      <h2 class="section-title">Skills &amp; Toolbox</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>Design</h3>
+          <div class="skill-tags">
+            <span class="tag">Figma</span>
+            <span class="tag">Design Systems</span>
+            <span class="tag">UX Research</span>
+            <span class="tag">Prototyping</span>
+            <span class="tag">Wireframing</span>
+            <span class="tag">Accessibility (WCAG)</span>
+            <span class="tag">Visual Design</span>
+            <span class="tag">Sketch</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Process</h3>
+          <div class="skill-tags">
+            <span class="tag">Design Sprints</span>
+            <span class="tag">Journey Mapping</span>
+            <span class="tag">Workshop Facilitation</span>
+            <span class="tag">Cross-functional Collaboration</span>
+            <span class="tag">Design Ops</span>
+            <span class="tag">Usability Testing</span>
+            <span class="tag">AI-assisted Design</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Tech</h3>
+          <div class="skill-tags">
+            <span class="tag">Bootstrap</span>
+            <span class="tag">HTML / CSS</span>
+            <span class="tag">Web Components</span>
+            <span class="tag">Design Tokens</span>
+            <span class="tag">SEO</span>
+            <span class="tag">Drupal</span>
+            <span class="tag">WordPress</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Experience ── -->
+  <section id="experience">
+    <div class="container">
+      <p class="section-label">Career</p>
+      <h2 class="section-title">Experience</h2>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <span class="timeline-company">Bupa</span>
+            <span class="timeline-date">Sep 2022 – Present · Manchester, UK</span>
+          </div>
+          <div class="timeline-role">Senior Product Designer</div>
+          <ul class="timeline-bullets">
+            <li>Led architecture of an Email Pattern Design System using web components and a master token library — 12
+              reusable patterns with 90% adoption across 6 squads.</li>
+            <li>Redesigned Pay As You Go digital services end-to-end across 20+ pages, combining qualitative and
+              quantitative insight to improve trust and commercial performance.</li>
+            <li>Facilitated design sprints, ideation sessions, and journey mapping; accelerated prototyping using
+              AI-assisted tools (Lovable, Figma Make).</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <span class="timeline-company">The Training Hub</span>
+            <span class="timeline-date">Nov 2021 – Oct 2022 · Manchester, UK</span>
+          </div>
+          <div class="timeline-role">Lead User Interface Designer</div>
+          <ul class="timeline-bullets">
+            <li>Owned UX and UI direction across products, aligning design standards with scalable system thinking.</li>
+            <li>Built structured design components and reusable patterns in Figma; produced detailed specs covering
+              interaction states, accessibility, and responsive behaviour.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <span class="timeline-company">copods</span>
+            <span class="timeline-date">Dec 2019 – Sep 2021 · Pune, India</span>
+          </div>
+          <div class="timeline-role">Visual Designer</div>
+          <ul class="timeline-bullets">
+            <li>Contributed to large-scale visual identity and digital design projects across enterprise clients.</li>
+            <li>Evolved scalable component libraries ensuring consistency across digital products.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-header">
+            <span class="timeline-company">Yes Manchester</span>
+            <span class="timeline-date">May 2019 – Jul 2019 · Manchester, UK</span>
+          </div>
+          <div class="timeline-role">Digital Support Officer</div>
+          <ul class="timeline-bullets">
+            <li>Supported clients with digital job searches; managed company website, social media, and admin tasks.
+            </li>
+          </ul>
+        </div>
+
+        <div class="hidden-roles" id="hidden-roles">
+          <div class="timeline-item">
+            <div class="timeline-header">
+              <span class="timeline-company">Cognizant Technology Solutions</span>
+              <span class="timeline-date">Nov 2009 – Nov 2016 · Pune, India</span>
+            </div>
+            <div class="timeline-role">Technology Lead</div>
+            <ul class="timeline-bullets">
+              <li>Led front-end development and UI design for banking and retail clients; built a WordPress-based
+                pattern library and migrated six legacy websites.</li>
+              <li>Developed responsive applications across 12 multilingual eCommerce country websites using HTML, CSS,
+                and Bootstrap.</li>
+              <li>Performed WCAG accessibility audits and executed full SEO strategy.</li>
+            </ul>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-header">
+              <span class="timeline-company">Tisya Impex Pvt. Ltd</span>
+              <span class="timeline-date">Jun 2008 – Nov 2009 · Pune, India</span>
+            </div>
+            <div class="timeline-role">Designer &amp; Animator</div>
+            <ul class="timeline-bullets">
+              <li>Designed web pages, logos, and marketing brochures; collaborated with backend developers for UI
+                implementation.</li>
+            </ul>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-header">
+              <span class="timeline-company">Indian Magic Eye</span>
+              <span class="timeline-date">Dec 2006 – Oct 2007 · Pune, India</span>
+            </div>
+            <div class="timeline-role">Assistant Director / Editor</div>
+            <ul class="timeline-bullets">
+              <li>Produced corporate films and TV advertisements; edited content for broadcast using Final Cut Pro and
+                Adobe Premiere.</li>
+            </ul>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-header">
+              <span class="timeline-company">Ecotech</span>
+              <span class="timeline-date">Oct 2004 – Jul 2005 · Pune, India</span>
+            </div>
+            <div class="timeline-role">Web Designer</div>
+            <ul class="timeline-bullets">
+              <li>Designed website templates, logos, and interactive web layouts; maintained company site content.</li>
+            </ul>
+          </div>
+        </div>
+
+        <button class="show-more-btn" id="show-more-btn">Show more experience</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Work ── -->
+  <section id="work">
+    <div class="container">
+      <p class="section-label">Portfolio</p>
+      <h2 class="section-title">Selected Work</h2>
+      <p class="section-intro">A selection of projects spanning design systems, consumer products, and enterprise
+        experiences.</p>
+      <div class="work-grid">
+
+        <!-- Card 1: Email Design System -->
+        <a class="case-card" href="email-pattern-system.html">
+          <div class="card-image" style="padding:0;display:block">
+            <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">
+              <rect width="400" height="225" fill="rgba(108,63,200,0.05)" />
+              <!-- Email header block -->
+              <rect x="40" y="24" width="320" height="30" rx="5" fill="rgba(108,63,200,0.22)"
+                stroke="rgba(108,63,200,0.55)" stroke-width="1.5" />
+              <rect x="56" y="33" width="60" height="7" rx="3" fill="rgba(255,255,255,0.6)" />
+              <rect x="250" y="33" width="40" height="7" rx="3" fill="rgba(224,64,160,0.75)" />
+              <rect x="298" y="33" width="44" height="7" rx="3" fill="rgba(255,255,255,0.3)" />
+              <!-- Hero image area with X pattern -->
+              <rect x="40" y="63" width="320" height="42" rx="5" fill="rgba(108,63,200,0.08)"
+                stroke="rgba(108,63,200,0.2)" stroke-width="1.5" />
+              <line x1="42" y1="65" x2="358" y2="103" stroke="rgba(108,63,200,0.18)" stroke-width="1" />
+              <line x1="358" y1="65" x2="42" y2="103" stroke="rgba(108,63,200,0.18)" stroke-width="1" />
+              <rect x="150" y="79" width="100" height="12" rx="3" fill="rgba(255,255,255,0.35)" />
+              <!-- 2-col content -->
+              <rect x="40" y="114" width="148" height="54" rx="5" fill="rgba(108,63,200,0.1)"
+                stroke="rgba(108,63,200,0.3)" stroke-width="1.5" />
+              <rect x="56" y="124" width="90" height="6" rx="3" fill="rgba(255,255,255,0.5)" />
+              <rect x="56" y="135" width="75" height="4" rx="2" fill="rgba(255,255,255,0.3)" />
+              <rect x="56" y="144" width="82" height="4" rx="2" fill="rgba(255,255,255,0.3)" />
+              <rect x="56" y="153" width="48" height="11" rx="5" fill="rgba(224,64,160,0.5)"
+                stroke="rgba(224,64,160,0.8)" stroke-width="1" />
+              <rect x="212" y="114" width="148" height="54" rx="5" fill="rgba(224,64,160,0.07)"
+                stroke="rgba(224,64,160,0.25)" stroke-width="1.5" />
+              <rect x="228" y="124" width="90" height="6" rx="3" fill="rgba(255,255,255,0.5)" />
+              <rect x="228" y="135" width="75" height="4" rx="2" fill="rgba(255,255,255,0.3)" />
+              <rect x="228" y="144" width="82" height="4" rx="2" fill="rgba(255,255,255,0.3)" />
+              <rect x="228" y="153" width="48" height="11" rx="5" fill="rgba(108,63,200,0.5)"
+                stroke="rgba(108,63,200,0.8)" stroke-width="1" />
+              <!-- Footer bar -->
+              <rect x="40" y="177" width="320" height="24" rx="5" fill="rgba(108,63,200,0.15)"
+                stroke="rgba(108,63,200,0.35)" stroke-width="1.5" />
+              <rect x="56" y="184" width="48" height="5" rx="2" fill="rgba(255,255,255,0.4)" />
+              <rect x="290" y="184" width="54" height="5" rx="2" fill="rgba(224,64,160,0.6)" />
+              <!-- Token badge -->
+              <rect x="312" y="8" width="66" height="18" rx="9" fill="rgba(224,64,160,0.25)"
+                stroke="rgba(224,64,160,0.6)" stroke-width="1" />
+              <rect x="324" y="13" width="42" height="7" rx="3" fill="rgba(255,255,255,0.5)" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-tags"><span class="card-tag">Design Systems</span><span class="card-tag">Bupa</span></div>
+            <div class="card-title">Email Pattern Design System</div>
+            <p class="card-desc">Architected a component-based Email Design System using web components and design
+              tokens — achieving 90% adoption across 6 squads.</p>
+            <span class="card-link">View Case Study</span>
+          </div>
+        </a>
+
+        <!-- Card 2: PAYG Redesign -->
+        <a class="case-card" href="bupa-payg-redesign.html">
+          <div class="card-image" style="padding:0;display:block">
+            <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">
+              <rect width="400" height="225" fill="rgba(108,63,200,0.04)" />
+              <!-- Left phone frame -->
+              <rect x="30" y="10" width="140" height="205" rx="18" fill="rgba(108,63,200,0.07)"
+                stroke="rgba(108,63,200,0.4)" stroke-width="1.5" />
+              <rect x="80" y="16" width="40" height="7" rx="3" fill="rgba(108,63,200,0.4)" />
+              <rect x="38" y="30" width="124" height="180" rx="12" fill="rgba(108,63,200,0.06)" />
+              <rect x="38" y="30" width="124" height="26" rx="12" fill="rgba(108,63,200,0.25)" />
+              <rect x="46" y="38" width="50" height="7" rx="3" fill="rgba(255,255,255,0.6)" />
+              <rect x="136" y="38" width="18" height="7" rx="3" fill="rgba(224,64,160,0.7)" />
+              <!-- metric card left -->
+              <rect x="44" y="63" width="112" height="52" rx="8" fill="rgba(255,255,255,0.12)"
+                stroke="rgba(108,63,200,0.15)" stroke-width="1" />
+              <rect x="52" y="71" width="45" height="5" rx="2" fill="rgba(224,64,160,0.6)" />
+              <rect x="52" y="81" width="62" height="14" rx="4" fill="rgba(255,255,255,0.55)" />
+              <rect x="52" y="100" width="95" height="4" rx="2" fill="rgba(108,63,200,0.35)" />
+              <!-- two mini cards -->
+              <rect x="44" y="122" width="52" height="44" rx="6" fill="rgba(255,255,255,0.1)"
+                stroke="rgba(108,63,200,0.12)" stroke-width="1" />
+              <rect x="104" y="122" width="52" height="44" rx="6" fill="rgba(255,255,255,0.1)"
+                stroke="rgba(224,64,160,0.12)" stroke-width="1" />
+              <rect x="50" y="130" width="36" height="5" rx="2" fill="rgba(255,255,255,0.45)" />
+              <rect x="50" y="140" width="28" height="10" rx="3" fill="rgba(108,63,200,0.5)" />
+              <rect x="110" y="130" width="36" height="5" rx="2" fill="rgba(255,255,255,0.45)" />
+              <rect x="110" y="140" width="28" height="10" rx="3" fill="rgba(224,64,160,0.5)" />
+              <!-- CTA left -->
+              <rect x="44" y="173" width="112" height="24" rx="12" fill="rgba(108,63,200,0.6)"
+                stroke="rgba(108,63,200,0.8)" stroke-width="1" />
+              <rect x="72" y="180" width="56" height="7" rx="3" fill="rgba(255,255,255,0.65)" />
+              <!-- Arrow -->
+              <line x1="186" y1="112" x2="210" y2="112" stroke="rgba(108,63,200,0.45)" stroke-width="2" />
+              <path d="M207 107 L213 112 L207 117" fill="none" stroke="rgba(108,63,200,0.55)" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round" />
+              <!-- Right phone frame (redesigned) -->
+              <rect x="230" y="10" width="140" height="205" rx="18" fill="rgba(224,64,160,0.05)"
+                stroke="rgba(224,64,160,0.4)" stroke-width="1.5" />
+              <rect x="260" y="16" width="40" height="7" rx="3" fill="rgba(224,64,160,0.4)" />
+              <rect x="238" y="30" width="124" height="180" rx="12" fill="rgba(224,64,160,0.04)" />
+              <rect x="238" y="30" width="124" height="26" rx="12" fill="rgba(224,64,160,0.2)" />
+              <rect x="246" y="38" width="55" height="7" rx="3" fill="rgba(255,255,255,0.65)" />
+              <rect x="336" y="38" width="18" height="7" rx="3" fill="rgba(108,63,200,0.7)" />
+              <!-- hero card right -->
+              <rect x="244" y="63" width="112" height="62" rx="8" fill="rgba(255,255,255,0.12)"
+                stroke="rgba(224,64,160,0.2)" stroke-width="1" />
+              <rect x="252" y="71" width="50" height="5" rx="2" fill="rgba(224,64,160,0.65)" />
+              <rect x="252" y="81" width="70" height="14" rx="4" fill="rgba(255,255,255,0.6)" />
+              <rect x="252" y="100" width="95" height="4" rx="2" fill="rgba(224,64,160,0.3)" />
+              <rect x="252" y="109" width="65" height="4" rx="2" fill="rgba(224,64,160,0.2)" />
+              <!-- list rows right -->
+              <rect x="244" y="133" width="112" height="14" rx="4" fill="rgba(255,255,255,0.09)"
+                stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+              <rect x="252" y="137" width="60" height="5" rx="2" fill="rgba(255,255,255,0.45)" />
+              <rect x="244" y="152" width="112" height="14" rx="4" fill="rgba(255,255,255,0.09)"
+                stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+              <rect x="252" y="156" width="50" height="5" rx="2" fill="rgba(255,255,255,0.45)" />
+              <!-- CTA right -->
+              <rect x="244" y="173" width="112" height="24" rx="12" fill="rgba(224,64,160,0.55)"
+                stroke="rgba(224,64,160,0.75)" stroke-width="1" />
+              <rect x="270" y="180" width="60" height="7" rx="3" fill="rgba(255,255,255,0.65)" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-tags"><span class="card-tag">UX / UI</span><span class="card-tag">Research</span></div>
+            <div class="card-title">Bupa Pay As You Go Redesign</div>
+            <p class="card-desc">End-to-end redesign of 20+ pages combining qualitative and quantitative insight to
+              improve trust, clarity, and commercial performance.</p>
+            <span class="card-link">View Case Study</span>
+          </div>
+        </a>
+
+        <!-- Card 3: Component Library (hidden) -->
+        <div class="case-card" style="display:none;">
+          <div class="card-image" style="padding:0;display:block">
+            <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">
+              <rect width="400" height="225" fill="rgba(108,63,200,0.04)" />
+              <!-- Atoms row -->
+              <circle cx="45" cy="52" r="14" fill="rgba(108,63,200,0.3)" stroke="rgba(108,63,200,0.7)"
+                stroke-width="1.5" />
+              <circle cx="90" cy="52" r="14" fill="rgba(224,64,160,0.25)" stroke="rgba(224,64,160,0.65)"
+                stroke-width="1.5" />
+              <rect x="115" y="38" width="50" height="28" rx="14" fill="rgba(108,63,200,0.18)"
+                stroke="rgba(108,63,200,0.5)" stroke-width="1.5" />
+              <rect x="178" y="43" width="30" height="18" rx="4" fill="rgba(224,64,160,0.18)"
+                stroke="rgba(224,64,160,0.5)" stroke-width="1.5" />
+              <rect x="222" y="43" width="60" height="18" rx="4" fill="rgba(108,63,200,0.12)"
+                stroke="rgba(108,63,200,0.4)" stroke-width="1.5" />
+              <circle cx="305" cy="52" r="10" fill="rgba(224,64,160,0.2)" stroke="rgba(224,64,160,0.55)"
+                stroke-width="1.5" />
+              <circle cx="335" cy="52" r="10" fill="rgba(108,63,200,0.15)" stroke="rgba(108,63,200,0.4)"
+                stroke-width="1.5" />
+              <circle cx="365" cy="52" r="10" fill="rgba(224,64,160,0.12)" stroke="rgba(224,64,160,0.35)"
+                stroke-width="1.5" />
+              <!-- Connector lines atoms → molecules -->
+              <line x1="45" y1="66" x2="85" y2="92" stroke="rgba(108,63,200,0.2)" stroke-width="1"
+                stroke-dasharray="3,3" />
+              <line x1="90" y1="66" x2="90" y2="92" stroke="rgba(108,63,200,0.2)" stroke-width="1"
+                stroke-dasharray="3,3" />
+              <line x1="140" y1="66" x2="220" y2="92" stroke="rgba(224,64,160,0.2)" stroke-width="1"
+                stroke-dasharray="3,3" />
+              <line x1="200" y1="61" x2="220" y2="92" stroke="rgba(224,64,160,0.2)" stroke-width="1"
+                stroke-dasharray="3,3" />
+              <line x1="335" y1="62" x2="310" y2="92" stroke="rgba(108,63,200,0.2)" stroke-width="1"
+                stroke-dasharray="3,3" />
+              <!-- Molecules row -->
+              <rect x="20" y="92" width="130" height="42" rx="7" fill="rgba(108,63,200,0.14)"
+                stroke="rgba(108,63,200,0.4)" stroke-width="1.5" />
+              <circle cx="43" cy="113" r="12" fill="rgba(108,63,200,0.3)" stroke="rgba(108,63,200,0.6)"
+                stroke-width="1" />
+              <rect x="63" y="107" width="60" height="6" rx="2" fill="rgba(255,255,255,0.5)" />
+              <rect x="63" y="118" width="45" height="5" rx="2" fill="rgba(255,255,255,0.3)" />
+              <rect x="165" y="92" width="130" height="42" rx="7" fill="rgba(224,64,160,0.1)"
+                stroke="rgba(224,64,160,0.35)" stroke-width="1.5" />
+              <rect x="176" y="103" width="108" height="7" rx="3" fill="rgba(255,255,255,0.45)" />
+              <rect x="176" y="115" width="85" height="5" rx="2" fill="rgba(255,255,255,0.3)" />
+              <rect x="176" y="124" width="50" height="8" rx="4" fill="rgba(108,63,200,0.5)"
+                stroke="rgba(108,63,200,0.7)" stroke-width="0.75" />
+              <rect x="305" y="92" width="75" height="42" rx="7" fill="rgba(108,63,200,0.1)"
+                stroke="rgba(108,63,200,0.3)" stroke-width="1.5" />
+              <rect x="314" y="101" width="55" height="6" rx="3" fill="rgba(255,255,255,0.45)" />
+              <rect x="314" y="112" width="40" height="5" rx="2" fill="rgba(255,255,255,0.3)" />
+              <rect x="314" y="122" width="55" height="8" rx="4" fill="rgba(224,64,160,0.45)" />
+              <!-- Connector lines molecules → organism -->
+              <line x1="85" y1="134" x2="140" y2="157" stroke="rgba(108,63,200,0.2)" stroke-width="1"
+                stroke-dasharray="3,3" />
+              <line x1="230" y1="134" x2="200" y2="157" stroke="rgba(224,64,160,0.2)" stroke-width="1"
+                stroke-dasharray="3,3" />
+              <line x1="342" y1="134" x2="290" y2="157" stroke="rgba(108,63,200,0.15)" stroke-width="1"
+                stroke-dasharray="3,3" />
+              <!-- Organism: full card -->
+              <rect x="30" y="157" width="340" height="55" rx="9" fill="rgba(108,63,200,0.09)"
+                stroke="rgba(108,63,200,0.35)" stroke-width="2" />
+              <circle cx="60" cy="184" r="16" fill="rgba(108,63,200,0.3)" stroke="rgba(108,63,200,0.55)"
+                stroke-width="1.5" />
+              <rect x="84" y="177" width="80" height="7" rx="3" fill="rgba(255,255,255,0.5)" />
+              <rect x="84" y="189" width="60" height="5" rx="2" fill="rgba(255,255,255,0.3)" />
+              <rect x="196" y="177" width="50" height="14" rx="7" fill="rgba(224,64,160,0.2)"
+                stroke="rgba(224,64,160,0.45)" stroke-width="1" />
+              <rect x="254" y="177" width="50" height="14" rx="7" fill="rgba(108,63,200,0.18)"
+                stroke="rgba(108,63,200,0.4)" stroke-width="1" />
+              <rect x="318" y="175" width="42" height="18" rx="9" fill="rgba(108,63,200,0.55)"
+                stroke="rgba(108,63,200,0.75)" stroke-width="1" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-tags"><span class="card-tag">Component Library</span><span class="card-tag">Figma</span>
+            </div>
+            <div class="card-title">Scalable Component Library</div>
+            <p class="card-desc">Built structured design components and reusable patterns in Figma to enforce
+              consistency and accelerate delivery across product teams.</p>
+            <a href="#" class="card-link">View Case Study</a>
+          </div>
+        </div>
+
+        <!-- Card 4: LMS (hidden) -->
+        <div class="case-card" style="display:none;">
+          <div class="card-image" style="padding:0;display:block">
+            <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">
+              <rect width="400" height="225" fill="rgba(108,63,200,0.04)" />
+              <!-- Sidebar -->
+              <rect x="0" y="0" width="130" height="225" fill="rgba(108,63,200,0.12)" />
+              <rect x="12" y="18" width="80" height="8" rx="3" fill="rgba(255,255,255,0.5)" />
+              <rect x="12" y="30" width="60" height="5" rx="2" fill="rgba(255,255,255,0.25)" />
+              <!-- Course 1 (active) -->
+              <rect x="6" y="50" width="118" height="30" rx="5" fill="rgba(108,63,200,0.5)"
+                stroke="rgba(108,63,200,0.7)" stroke-width="1" />
+              <circle cx="22" cy="65" r="7" fill="rgba(255,255,255,0.4)" />
+              <rect x="35" y="60" width="65" height="6" rx="2" fill="rgba(255,255,255,0.65)" />
+              <rect x="35" y="70" width="45" height="4" rx="2" fill="rgba(255,255,255,0.35)" />
+              <!-- Course 2 -->
+              <rect x="6" y="86" width="118" height="28" rx="5" fill="rgba(255,255,255,0.06)" />
+              <circle cx="22" cy="100" r="7" fill="rgba(224,64,160,0.35)" />
+              <rect x="35" y="95" width="60" height="6" rx="2" fill="rgba(255,255,255,0.45)" />
+              <rect x="35" y="105" width="40" height="4" rx="2" fill="rgba(255,255,255,0.25)" />
+              <!-- Course 3 -->
+              <rect x="6" y="120" width="118" height="28" rx="5" fill="rgba(255,255,255,0.04)" />
+              <circle cx="22" cy="134" r="7" fill="rgba(108,63,200,0.25)" />
+              <rect x="35" y="129" width="55" height="6" rx="2" fill="rgba(255,255,255,0.4)" />
+              <rect x="35" y="139" width="38" height="4" rx="2" fill="rgba(255,255,255,0.2)" />
+              <!-- Course 4 -->
+              <rect x="6" y="154" width="118" height="28" rx="5" fill="rgba(255,255,255,0.03)" />
+              <circle cx="22" cy="168" r="7" fill="rgba(224,64,160,0.2)" />
+              <rect x="35" y="163" width="58" height="6" rx="2" fill="rgba(255,255,255,0.35)" />
+              <rect x="35" y="173" width="42" height="4" rx="2" fill="rgba(255,255,255,0.18)" />
+              <!-- Main content area -->
+              <rect x="145" y="18" width="240" height="30" rx="5" fill="rgba(108,63,200,0.12)"
+                stroke="rgba(108,63,200,0.2)" stroke-width="1" />
+              <rect x="156" y="27" width="110" height="8" rx="3" fill="rgba(255,255,255,0.55)" />
+              <rect x="356" y="24" width="20" height="20" rx="10" fill="rgba(224,64,160,0.4)"
+                stroke="rgba(224,64,160,0.6)" stroke-width="1" />
+              <!-- Progress bar -->
+              <rect x="145" y="60" width="240" height="16" rx="8" fill="rgba(108,63,200,0.08)"
+                stroke="rgba(108,63,200,0.15)" stroke-width="1" />
+              <rect x="145" y="60" width="174" height="16" rx="8" fill="rgba(108,63,200,0.45)" />
+              <rect x="288" y="63" width="25" height="8" rx="2" fill="rgba(255,255,255,0.6)" />
+              <!-- Module list rows -->
+              <rect x="145" y="85" width="240" height="24" rx="5" fill="rgba(255,255,255,0.1)"
+                stroke="rgba(108,63,200,0.12)" stroke-width="1" />
+              <circle cx="161" cy="97" r="6" fill="rgba(108,63,200,0.6)" />
+              <rect x="174" y="93" width="80" height="5" rx="2" fill="rgba(255,255,255,0.55)" />
+              <rect x="355" y="92" width="22" height="10" rx="5" fill="rgba(224,64,160,0.35)" />
+              <rect x="145" y="114" width="240" height="24" rx="5" fill="rgba(255,255,255,0.07)"
+                stroke="rgba(108,63,200,0.1)" stroke-width="1" />
+              <circle cx="161" cy="126" r="6" fill="rgba(108,63,200,0.4)" />
+              <rect x="174" y="122" width="65" height="5" rx="2" fill="rgba(255,255,255,0.45)" />
+              <rect x="355" y="121" width="22" height="10" rx="5" fill="rgba(108,63,200,0.25)" />
+              <rect x="145" y="143" width="240" height="24" rx="5" fill="rgba(255,255,255,0.04)"
+                stroke="rgba(108,63,200,0.08)" stroke-width="1" />
+              <circle cx="161" cy="155" r="6" fill="rgba(224,64,160,0.25)" stroke="rgba(224,64,160,0.4)"
+                stroke-width="1" />
+              <rect x="174" y="151" width="75" height="5" rx="2" fill="rgba(255,255,255,0.4)" />
+              <!-- CTAs -->
+              <rect x="145" y="180" width="112" height="26" rx="13" fill="rgba(108,63,200,0.55)"
+                stroke="rgba(108,63,200,0.7)" stroke-width="1" />
+              <rect x="163" y="188" width="76" height="7" rx="3" fill="rgba(255,255,255,0.65)" />
+              <rect x="268" y="180" width="117" height="26" rx="13" fill="rgba(255,255,255,0.05)"
+                stroke="rgba(108,63,200,0.25)" stroke-width="1.5" />
+              <rect x="288" y="188" width="76" height="7" rx="3" fill="rgba(255,255,255,0.35)" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-tags"><span class="card-tag">UX / UI</span><span class="card-tag">Training Hub</span></div>
+            <div class="card-title">Learning Management System</div>
+            <p class="card-desc">Designed the end-to-end UX for a scalable LMS — course navigation, progress tracking,
+              and a component system for consistent module layouts.</p>
+            <a href="#" class="card-link">View Case Study</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Contact ── -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-wrapper">
+        <div class="contact-info">
+          <p class="section-label">Get In Touch</p>
+          <h2 class="section-title">Let's work together</h2>
+          <p>Whether you're looking for a senior product designer, want to talk design systems, or just want to say
+            hello — I'd love to hear from you.</p>
+          <div class="contact-links">
+            <a href="mailto:amruta.sp@gmail.com" class="contact-link">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+              </svg>
+              amruta.sp@gmail.com
+            </a>
+            <a href="https://www.linkedin.com/in/amrutainamdar" target="_blank" rel="noopener" class="contact-link">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+              </svg>
+              linkedin.com/in/amrutainamdar
+            </a>
+          </div>
+        </div>
+
+        <!-- <form id="contact-form" class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell me about your project or opportunity…"
+              required></textarea>
+          </div>
+          <div id="form-status" class="form-status" role="alert"></div>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>-->
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container footer-inner">
+      <p class="footer-copy">&copy; 2025 Amruta Inamdar. All rights reserved.</p>
+      <div class="footer-li">
+        <a href="https://www.linkedin.com/in/amrutainamdar" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+          </svg>
           LinkedIn
         </a>
       </div>
     </div>
-  </div>
-</section>
+  </footer>
 
-<!-- ── About ── -->
-<section id="about">
-  <div class="container">
-    <div class="about-grid">
-      <div>
-        <div class="photo-placeholder">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0zM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
-          Add your photo here
-        </div>
-      </div>
-      <div class="about-text">
-        <p class="section-label">About Me</p>
-        <h2 class="section-title">Building products that are consistent, accessible, and human.</h2>
-        <p>I'm a strategic and systems-driven Product Designer with 10+ years of experience leading scalable design initiatives across enterprise and digital platforms.</p>
-        <p>My expertise lies in building and evolving design systems, improving alignment between design and engineering, and embedding accessibility and documentation standards into everyday workflows.</p>
-        <p>I'm a strong advocate of AI-assisted design workflows and cross-functional collaboration with Design Ops — always looking for ways to drive efficiency, consistency, and meaningful innovation.</p>
-        <div class="stats-chips">
-          <span class="chip">10+ years experience</span>
-          <span class="chip">Design Systems</span>
-          <span class="chip">Accessibility-first</span>
-          <span class="chip">AI-assisted workflows</span>
-          <span class="chip">Design Ops</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── Skills ── -->
-<section id="skills">
-  <div class="container">
-    <p class="section-label">Expertise</p>
-    <h2 class="section-title">Skills &amp; Toolbox</h2>
-    <div class="skills-grid">
-      <div class="skill-group">
-        <h3>Design</h3>
-        <div class="skill-tags">
-          <span class="tag">Figma</span>
-          <span class="tag">Design Systems</span>
-          <span class="tag">UX Research</span>
-          <span class="tag">Prototyping</span>
-          <span class="tag">Wireframing</span>
-          <span class="tag">Accessibility (WCAG)</span>
-          <span class="tag">Visual Design</span>
-          <span class="tag">Sketch</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h3>Process</h3>
-        <div class="skill-tags">
-          <span class="tag">Design Sprints</span>
-          <span class="tag">Journey Mapping</span>
-          <span class="tag">Workshop Facilitation</span>
-          <span class="tag">Cross-functional Collaboration</span>
-          <span class="tag">Design Ops</span>
-          <span class="tag">Usability Testing</span>
-          <span class="tag">AI-assisted Design</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h3>Tech</h3>
-        <div class="skill-tags">
-          <span class="tag">Bootstrap</span>
-          <span class="tag">HTML / CSS</span>
-          <span class="tag">Web Components</span>
-          <span class="tag">Design Tokens</span>
-          <span class="tag">SEO</span>
-          <span class="tag">Drupal</span>
-          <span class="tag">WordPress</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── Experience ── -->
-<section id="experience">
-  <div class="container">
-    <p class="section-label">Career</p>
-    <h2 class="section-title">Experience</h2>
-    <div class="timeline">
-
-      <div class="timeline-item">
-        <div class="timeline-header">
-          <span class="timeline-company">Bupa</span>
-          <span class="timeline-date">Sep 2022 – Present · Manchester, UK</span>
-        </div>
-        <div class="timeline-role">Senior Product Designer</div>
-        <ul class="timeline-bullets">
-          <li>Led architecture of an Email Pattern Design System using web components and a master token library — 12 reusable patterns with 90% adoption across 6 squads.</li>
-          <li>Redesigned Pay As You Go digital services end-to-end across 20+ pages, combining qualitative and quantitative insight to improve trust and commercial performance.</li>
-          <li>Facilitated design sprints, ideation sessions, and journey mapping; accelerated prototyping using AI-assisted tools (Lovable, Figma Make).</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-header">
-          <span class="timeline-company">The Training Hub</span>
-          <span class="timeline-date">Nov 2021 – Oct 2022 · Manchester, UK</span>
-        </div>
-        <div class="timeline-role">Lead User Interface Designer</div>
-        <ul class="timeline-bullets">
-          <li>Owned UX and UI direction across products, aligning design standards with scalable system thinking.</li>
-          <li>Built structured design components and reusable patterns in Figma; produced detailed specs covering interaction states, accessibility, and responsive behaviour.</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-header">
-          <span class="timeline-company">copods</span>
-          <span class="timeline-date">Dec 2019 – Sep 2021 · Pune, India</span>
-        </div>
-        <div class="timeline-role">Visual Designer</div>
-        <ul class="timeline-bullets">
-          <li>Contributed to large-scale visual identity and digital design projects across enterprise clients.</li>
-          <li>Evolved scalable component libraries ensuring consistency across digital products.</li>
-        </ul>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-header">
-          <span class="timeline-company">Yes Manchester</span>
-          <span class="timeline-date">May 2019 – Jul 2019 · Manchester, UK</span>
-        </div>
-        <div class="timeline-role">Digital Support Officer</div>
-        <ul class="timeline-bullets">
-          <li>Supported clients with digital job searches; managed company website, social media, and admin tasks.</li>
-        </ul>
-      </div>
-
-      <div class="hidden-roles" id="hidden-roles">
-        <div class="timeline-item">
-          <div class="timeline-header">
-            <span class="timeline-company">Cognizant Technology Solutions</span>
-            <span class="timeline-date">Nov 2009 – Nov 2016 · Pune, India</span>
-          </div>
-          <div class="timeline-role">Technology Lead</div>
-          <ul class="timeline-bullets">
-            <li>Led front-end development and UI design for banking and retail clients; built a WordPress-based pattern library and migrated six legacy websites.</li>
-            <li>Developed responsive applications across 12 multilingual eCommerce country websites using HTML, CSS, and Bootstrap.</li>
-            <li>Performed WCAG accessibility audits and executed full SEO strategy.</li>
-          </ul>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-header">
-            <span class="timeline-company">Tisya Impex Pvt. Ltd</span>
-            <span class="timeline-date">Jun 2008 – Nov 2009 · Pune, India</span>
-          </div>
-          <div class="timeline-role">Designer &amp; Animator</div>
-          <ul class="timeline-bullets">
-            <li>Designed web pages, logos, and marketing brochures; collaborated with backend developers for UI implementation.</li>
-          </ul>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-header">
-            <span class="timeline-company">Indian Magic Eye</span>
-            <span class="timeline-date">Dec 2006 – Oct 2007 · Pune, India</span>
-          </div>
-          <div class="timeline-role">Assistant Director / Editor</div>
-          <ul class="timeline-bullets">
-            <li>Produced corporate films and TV advertisements; edited content for broadcast using Final Cut Pro and Adobe Premiere.</li>
-          </ul>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-header">
-            <span class="timeline-company">Ecotech</span>
-            <span class="timeline-date">Oct 2004 – Jul 2005 · Pune, India</span>
-          </div>
-          <div class="timeline-role">Web Designer</div>
-          <ul class="timeline-bullets">
-            <li>Designed website templates, logos, and interactive web layouts; maintained company site content.</li>
-          </ul>
-        </div>
-      </div>
-
-      <button class="show-more-btn" id="show-more-btn">Show more experience</button>
-    </div>
-  </div>
-</section>
-
-<!-- ── Work ── -->
-<section id="work">
-  <div class="container">
-    <p class="section-label">Portfolio</p>
-    <h2 class="section-title">Selected Work</h2>
-    <p class="section-intro">A selection of projects spanning design systems, consumer products, and enterprise experiences.</p>
-    <div class="work-grid">
-
-      <!-- Card 1: Email Design System -->
-      <div class="case-card">
-        <div class="card-image" style="padding:0;display:block">
-          <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">
-            <rect width="400" height="225" fill="rgba(108,63,200,0.05)"/>
-            <!-- Email header block -->
-            <rect x="40" y="24" width="320" height="30" rx="5" fill="rgba(108,63,200,0.22)" stroke="rgba(108,63,200,0.55)" stroke-width="1.5"/>
-            <rect x="56" y="33" width="60" height="7" rx="3" fill="rgba(255,255,255,0.6)"/>
-            <rect x="250" y="33" width="40" height="7" rx="3" fill="rgba(224,64,160,0.75)"/>
-            <rect x="298" y="33" width="44" height="7" rx="3" fill="rgba(255,255,255,0.3)"/>
-            <!-- Hero image area with X pattern -->
-            <rect x="40" y="63" width="320" height="42" rx="5" fill="rgba(108,63,200,0.08)" stroke="rgba(108,63,200,0.2)" stroke-width="1.5"/>
-            <line x1="42" y1="65" x2="358" y2="103" stroke="rgba(108,63,200,0.18)" stroke-width="1"/>
-            <line x1="358" y1="65" x2="42" y2="103" stroke="rgba(108,63,200,0.18)" stroke-width="1"/>
-            <rect x="150" y="79" width="100" height="12" rx="3" fill="rgba(255,255,255,0.35)"/>
-            <!-- 2-col content -->
-            <rect x="40" y="114" width="148" height="54" rx="5" fill="rgba(108,63,200,0.1)" stroke="rgba(108,63,200,0.3)" stroke-width="1.5"/>
-            <rect x="56" y="124" width="90" height="6" rx="3" fill="rgba(255,255,255,0.5)"/>
-            <rect x="56" y="135" width="75" height="4" rx="2" fill="rgba(255,255,255,0.3)"/>
-            <rect x="56" y="144" width="82" height="4" rx="2" fill="rgba(255,255,255,0.3)"/>
-            <rect x="56" y="153" width="48" height="11" rx="5" fill="rgba(224,64,160,0.5)" stroke="rgba(224,64,160,0.8)" stroke-width="1"/>
-            <rect x="212" y="114" width="148" height="54" rx="5" fill="rgba(224,64,160,0.07)" stroke="rgba(224,64,160,0.25)" stroke-width="1.5"/>
-            <rect x="228" y="124" width="90" height="6" rx="3" fill="rgba(255,255,255,0.5)"/>
-            <rect x="228" y="135" width="75" height="4" rx="2" fill="rgba(255,255,255,0.3)"/>
-            <rect x="228" y="144" width="82" height="4" rx="2" fill="rgba(255,255,255,0.3)"/>
-            <rect x="228" y="153" width="48" height="11" rx="5" fill="rgba(108,63,200,0.5)" stroke="rgba(108,63,200,0.8)" stroke-width="1"/>
-            <!-- Footer bar -->
-            <rect x="40" y="177" width="320" height="24" rx="5" fill="rgba(108,63,200,0.15)" stroke="rgba(108,63,200,0.35)" stroke-width="1.5"/>
-            <rect x="56" y="184" width="48" height="5" rx="2" fill="rgba(255,255,255,0.4)"/>
-            <rect x="290" y="184" width="54" height="5" rx="2" fill="rgba(224,64,160,0.6)"/>
-            <!-- Token badge -->
-            <rect x="312" y="8" width="66" height="18" rx="9" fill="rgba(224,64,160,0.25)" stroke="rgba(224,64,160,0.6)" stroke-width="1"/>
-            <rect x="324" y="13" width="42" height="7" rx="3" fill="rgba(255,255,255,0.5)"/>
-          </svg>
-        </div>
-        <div class="card-body">
-          <div class="card-tags"><span class="card-tag">Design Systems</span><span class="card-tag">Bupa</span></div>
-          <div class="card-title">Email Pattern Design System</div>
-          <p class="card-desc">Architected a component-based Email Design System using web components and design tokens — achieving 90% adoption across 6 squads.</p>
-          <a href="#" class="card-link">View Case Study</a>
-        </div>
-      </div>
-
-      <!-- Card 2: PAYG Redesign -->
-      <div class="case-card">
-        <div class="card-image" style="padding:0;display:block">
-          <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">
-            <rect width="400" height="225" fill="rgba(108,63,200,0.04)"/>
-            <!-- Left phone frame -->
-            <rect x="30" y="10" width="140" height="205" rx="18" fill="rgba(108,63,200,0.07)" stroke="rgba(108,63,200,0.4)" stroke-width="1.5"/>
-            <rect x="80" y="16" width="40" height="7" rx="3" fill="rgba(108,63,200,0.4)"/>
-            <rect x="38" y="30" width="124" height="180" rx="12" fill="rgba(108,63,200,0.06)"/>
-            <rect x="38" y="30" width="124" height="26" rx="12" fill="rgba(108,63,200,0.25)"/>
-            <rect x="46" y="38" width="50" height="7" rx="3" fill="rgba(255,255,255,0.6)"/>
-            <rect x="136" y="38" width="18" height="7" rx="3" fill="rgba(224,64,160,0.7)"/>
-            <!-- metric card left -->
-            <rect x="44" y="63" width="112" height="52" rx="8" fill="rgba(255,255,255,0.12)" stroke="rgba(108,63,200,0.15)" stroke-width="1"/>
-            <rect x="52" y="71" width="45" height="5" rx="2" fill="rgba(224,64,160,0.6)"/>
-            <rect x="52" y="81" width="62" height="14" rx="4" fill="rgba(255,255,255,0.55)"/>
-            <rect x="52" y="100" width="95" height="4" rx="2" fill="rgba(108,63,200,0.35)"/>
-            <!-- two mini cards -->
-            <rect x="44" y="122" width="52" height="44" rx="6" fill="rgba(255,255,255,0.1)" stroke="rgba(108,63,200,0.12)" stroke-width="1"/>
-            <rect x="104" y="122" width="52" height="44" rx="6" fill="rgba(255,255,255,0.1)" stroke="rgba(224,64,160,0.12)" stroke-width="1"/>
-            <rect x="50" y="130" width="36" height="5" rx="2" fill="rgba(255,255,255,0.45)"/>
-            <rect x="50" y="140" width="28" height="10" rx="3" fill="rgba(108,63,200,0.5)"/>
-            <rect x="110" y="130" width="36" height="5" rx="2" fill="rgba(255,255,255,0.45)"/>
-            <rect x="110" y="140" width="28" height="10" rx="3" fill="rgba(224,64,160,0.5)"/>
-            <!-- CTA left -->
-            <rect x="44" y="173" width="112" height="24" rx="12" fill="rgba(108,63,200,0.6)" stroke="rgba(108,63,200,0.8)" stroke-width="1"/>
-            <rect x="72" y="180" width="56" height="7" rx="3" fill="rgba(255,255,255,0.65)"/>
-            <!-- Arrow -->
-            <line x1="186" y1="112" x2="210" y2="112" stroke="rgba(108,63,200,0.45)" stroke-width="2"/>
-            <path d="M207 107 L213 112 L207 117" fill="none" stroke="rgba(108,63,200,0.55)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <!-- Right phone frame (redesigned) -->
-            <rect x="230" y="10" width="140" height="205" rx="18" fill="rgba(224,64,160,0.05)" stroke="rgba(224,64,160,0.4)" stroke-width="1.5"/>
-            <rect x="260" y="16" width="40" height="7" rx="3" fill="rgba(224,64,160,0.4)"/>
-            <rect x="238" y="30" width="124" height="180" rx="12" fill="rgba(224,64,160,0.04)"/>
-            <rect x="238" y="30" width="124" height="26" rx="12" fill="rgba(224,64,160,0.2)"/>
-            <rect x="246" y="38" width="55" height="7" rx="3" fill="rgba(255,255,255,0.65)"/>
-            <rect x="336" y="38" width="18" height="7" rx="3" fill="rgba(108,63,200,0.7)"/>
-            <!-- hero card right -->
-            <rect x="244" y="63" width="112" height="62" rx="8" fill="rgba(255,255,255,0.12)" stroke="rgba(224,64,160,0.2)" stroke-width="1"/>
-            <rect x="252" y="71" width="50" height="5" rx="2" fill="rgba(224,64,160,0.65)"/>
-            <rect x="252" y="81" width="70" height="14" rx="4" fill="rgba(255,255,255,0.6)"/>
-            <rect x="252" y="100" width="95" height="4" rx="2" fill="rgba(224,64,160,0.3)"/>
-            <rect x="252" y="109" width="65" height="4" rx="2" fill="rgba(224,64,160,0.2)"/>
-            <!-- list rows right -->
-            <rect x="244" y="133" width="112" height="14" rx="4" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-            <rect x="252" y="137" width="60" height="5" rx="2" fill="rgba(255,255,255,0.45)"/>
-            <rect x="244" y="152" width="112" height="14" rx="4" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-            <rect x="252" y="156" width="50" height="5" rx="2" fill="rgba(255,255,255,0.45)"/>
-            <!-- CTA right -->
-            <rect x="244" y="173" width="112" height="24" rx="12" fill="rgba(224,64,160,0.55)" stroke="rgba(224,64,160,0.75)" stroke-width="1"/>
-            <rect x="270" y="180" width="60" height="7" rx="3" fill="rgba(255,255,255,0.65)"/>
-          </svg>
-        </div>
-        <div class="card-body">
-          <div class="card-tags"><span class="card-tag">UX / UI</span><span class="card-tag">Research</span></div>
-          <div class="card-title">Bupa Pay As You Go Redesign</div>
-          <p class="card-desc">End-to-end redesign of 20+ pages combining qualitative and quantitative insight to improve trust, clarity, and commercial performance.</p>
-          <a href="#" class="card-link">View Case Study</a>
-        </div>
-      </div>
-
-      <!-- Card 3: Component Library -->
-      <div class="case-card">
-        <div class="card-image" style="padding:0;display:block">
-          <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">
-            <rect width="400" height="225" fill="rgba(108,63,200,0.04)"/>
-            <!-- Atoms row -->
-            <circle cx="45" cy="52" r="14" fill="rgba(108,63,200,0.3)" stroke="rgba(108,63,200,0.7)" stroke-width="1.5"/>
-            <circle cx="90" cy="52" r="14" fill="rgba(224,64,160,0.25)" stroke="rgba(224,64,160,0.65)" stroke-width="1.5"/>
-            <rect x="115" y="38" width="50" height="28" rx="14" fill="rgba(108,63,200,0.18)" stroke="rgba(108,63,200,0.5)" stroke-width="1.5"/>
-            <rect x="178" y="43" width="30" height="18" rx="4" fill="rgba(224,64,160,0.18)" stroke="rgba(224,64,160,0.5)" stroke-width="1.5"/>
-            <rect x="222" y="43" width="60" height="18" rx="4" fill="rgba(108,63,200,0.12)" stroke="rgba(108,63,200,0.4)" stroke-width="1.5"/>
-            <circle cx="305" cy="52" r="10" fill="rgba(224,64,160,0.2)" stroke="rgba(224,64,160,0.55)" stroke-width="1.5"/>
-            <circle cx="335" cy="52" r="10" fill="rgba(108,63,200,0.15)" stroke="rgba(108,63,200,0.4)" stroke-width="1.5"/>
-            <circle cx="365" cy="52" r="10" fill="rgba(224,64,160,0.12)" stroke="rgba(224,64,160,0.35)" stroke-width="1.5"/>
-            <!-- Connector lines atoms → molecules -->
-            <line x1="45" y1="66" x2="85" y2="92" stroke="rgba(108,63,200,0.2)" stroke-width="1" stroke-dasharray="3,3"/>
-            <line x1="90" y1="66" x2="90" y2="92" stroke="rgba(108,63,200,0.2)" stroke-width="1" stroke-dasharray="3,3"/>
-            <line x1="140" y1="66" x2="220" y2="92" stroke="rgba(224,64,160,0.2)" stroke-width="1" stroke-dasharray="3,3"/>
-            <line x1="200" y1="61" x2="220" y2="92" stroke="rgba(224,64,160,0.2)" stroke-width="1" stroke-dasharray="3,3"/>
-            <line x1="335" y1="62" x2="310" y2="92" stroke="rgba(108,63,200,0.2)" stroke-width="1" stroke-dasharray="3,3"/>
-            <!-- Molecules row -->
-            <rect x="20" y="92" width="130" height="42" rx="7" fill="rgba(108,63,200,0.14)" stroke="rgba(108,63,200,0.4)" stroke-width="1.5"/>
-            <circle cx="43" cy="113" r="12" fill="rgba(108,63,200,0.3)" stroke="rgba(108,63,200,0.6)" stroke-width="1"/>
-            <rect x="63" y="107" width="60" height="6" rx="2" fill="rgba(255,255,255,0.5)"/>
-            <rect x="63" y="118" width="45" height="5" rx="2" fill="rgba(255,255,255,0.3)"/>
-            <rect x="165" y="92" width="130" height="42" rx="7" fill="rgba(224,64,160,0.1)" stroke="rgba(224,64,160,0.35)" stroke-width="1.5"/>
-            <rect x="176" y="103" width="108" height="7" rx="3" fill="rgba(255,255,255,0.45)"/>
-            <rect x="176" y="115" width="85" height="5" rx="2" fill="rgba(255,255,255,0.3)"/>
-            <rect x="176" y="124" width="50" height="8" rx="4" fill="rgba(108,63,200,0.5)" stroke="rgba(108,63,200,0.7)" stroke-width="0.75"/>
-            <rect x="305" y="92" width="75" height="42" rx="7" fill="rgba(108,63,200,0.1)" stroke="rgba(108,63,200,0.3)" stroke-width="1.5"/>
-            <rect x="314" y="101" width="55" height="6" rx="3" fill="rgba(255,255,255,0.45)"/>
-            <rect x="314" y="112" width="40" height="5" rx="2" fill="rgba(255,255,255,0.3)"/>
-            <rect x="314" y="122" width="55" height="8" rx="4" fill="rgba(224,64,160,0.45)"/>
-            <!-- Connector lines molecules → organism -->
-            <line x1="85" y1="134" x2="140" y2="157" stroke="rgba(108,63,200,0.2)" stroke-width="1" stroke-dasharray="3,3"/>
-            <line x1="230" y1="134" x2="200" y2="157" stroke="rgba(224,64,160,0.2)" stroke-width="1" stroke-dasharray="3,3"/>
-            <line x1="342" y1="134" x2="290" y2="157" stroke="rgba(108,63,200,0.15)" stroke-width="1" stroke-dasharray="3,3"/>
-            <!-- Organism: full card -->
-            <rect x="30" y="157" width="340" height="55" rx="9" fill="rgba(108,63,200,0.09)" stroke="rgba(108,63,200,0.35)" stroke-width="2"/>
-            <circle cx="60" cy="184" r="16" fill="rgba(108,63,200,0.3)" stroke="rgba(108,63,200,0.55)" stroke-width="1.5"/>
-            <rect x="84" y="177" width="80" height="7" rx="3" fill="rgba(255,255,255,0.5)"/>
-            <rect x="84" y="189" width="60" height="5" rx="2" fill="rgba(255,255,255,0.3)"/>
-            <rect x="196" y="177" width="50" height="14" rx="7" fill="rgba(224,64,160,0.2)" stroke="rgba(224,64,160,0.45)" stroke-width="1"/>
-            <rect x="254" y="177" width="50" height="14" rx="7" fill="rgba(108,63,200,0.18)" stroke="rgba(108,63,200,0.4)" stroke-width="1"/>
-            <rect x="318" y="175" width="42" height="18" rx="9" fill="rgba(108,63,200,0.55)" stroke="rgba(108,63,200,0.75)" stroke-width="1"/>
-          </svg>
-        </div>
-        <div class="card-body">
-          <div class="card-tags"><span class="card-tag">Component Library</span><span class="card-tag">Figma</span></div>
-          <div class="card-title">Scalable Component Library</div>
-          <p class="card-desc">Built structured design components and reusable patterns in Figma to enforce consistency and accelerate delivery across product teams.</p>
-          <a href="#" class="card-link">View Case Study</a>
-        </div>
-      </div>
-
-      <!-- Card 4: LMS -->
-      <div class="case-card">
-        <div class="card-image" style="padding:0;display:block">
-          <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">
-            <rect width="400" height="225" fill="rgba(108,63,200,0.04)"/>
-            <!-- Sidebar -->
-            <rect x="0" y="0" width="130" height="225" fill="rgba(108,63,200,0.12)"/>
-            <rect x="12" y="18" width="80" height="8" rx="3" fill="rgba(255,255,255,0.5)"/>
-            <rect x="12" y="30" width="60" height="5" rx="2" fill="rgba(255,255,255,0.25)"/>
-            <!-- Course 1 (active) -->
-            <rect x="6" y="50" width="118" height="30" rx="5" fill="rgba(108,63,200,0.5)" stroke="rgba(108,63,200,0.7)" stroke-width="1"/>
-            <circle cx="22" cy="65" r="7" fill="rgba(255,255,255,0.4)"/>
-            <rect x="35" y="60" width="65" height="6" rx="2" fill="rgba(255,255,255,0.65)"/>
-            <rect x="35" y="70" width="45" height="4" rx="2" fill="rgba(255,255,255,0.35)"/>
-            <!-- Course 2 -->
-            <rect x="6" y="86" width="118" height="28" rx="5" fill="rgba(255,255,255,0.06)"/>
-            <circle cx="22" cy="100" r="7" fill="rgba(224,64,160,0.35)"/>
-            <rect x="35" y="95" width="60" height="6" rx="2" fill="rgba(255,255,255,0.45)"/>
-            <rect x="35" y="105" width="40" height="4" rx="2" fill="rgba(255,255,255,0.25)"/>
-            <!-- Course 3 -->
-            <rect x="6" y="120" width="118" height="28" rx="5" fill="rgba(255,255,255,0.04)"/>
-            <circle cx="22" cy="134" r="7" fill="rgba(108,63,200,0.25)"/>
-            <rect x="35" y="129" width="55" height="6" rx="2" fill="rgba(255,255,255,0.4)"/>
-            <rect x="35" y="139" width="38" height="4" rx="2" fill="rgba(255,255,255,0.2)"/>
-            <!-- Course 4 -->
-            <rect x="6" y="154" width="118" height="28" rx="5" fill="rgba(255,255,255,0.03)"/>
-            <circle cx="22" cy="168" r="7" fill="rgba(224,64,160,0.2)"/>
-            <rect x="35" y="163" width="58" height="6" rx="2" fill="rgba(255,255,255,0.35)"/>
-            <rect x="35" y="173" width="42" height="4" rx="2" fill="rgba(255,255,255,0.18)"/>
-            <!-- Main content area -->
-            <rect x="145" y="18" width="240" height="30" rx="5" fill="rgba(108,63,200,0.12)" stroke="rgba(108,63,200,0.2)" stroke-width="1"/>
-            <rect x="156" y="27" width="110" height="8" rx="3" fill="rgba(255,255,255,0.55)"/>
-            <rect x="356" y="24" width="20" height="20" rx="10" fill="rgba(224,64,160,0.4)" stroke="rgba(224,64,160,0.6)" stroke-width="1"/>
-            <!-- Progress bar -->
-            <rect x="145" y="60" width="240" height="16" rx="8" fill="rgba(108,63,200,0.08)" stroke="rgba(108,63,200,0.15)" stroke-width="1"/>
-            <rect x="145" y="60" width="174" height="16" rx="8" fill="rgba(108,63,200,0.45)"/>
-            <rect x="288" y="63" width="25" height="8" rx="2" fill="rgba(255,255,255,0.6)"/>
-            <!-- Module list rows -->
-            <rect x="145" y="85" width="240" height="24" rx="5" fill="rgba(255,255,255,0.1)" stroke="rgba(108,63,200,0.12)" stroke-width="1"/>
-            <circle cx="161" cy="97" r="6" fill="rgba(108,63,200,0.6)"/>
-            <rect x="174" y="93" width="80" height="5" rx="2" fill="rgba(255,255,255,0.55)"/>
-            <rect x="355" y="92" width="22" height="10" rx="5" fill="rgba(224,64,160,0.35)"/>
-            <rect x="145" y="114" width="240" height="24" rx="5" fill="rgba(255,255,255,0.07)" stroke="rgba(108,63,200,0.1)" stroke-width="1"/>
-            <circle cx="161" cy="126" r="6" fill="rgba(108,63,200,0.4)"/>
-            <rect x="174" y="122" width="65" height="5" rx="2" fill="rgba(255,255,255,0.45)"/>
-            <rect x="355" y="121" width="22" height="10" rx="5" fill="rgba(108,63,200,0.25)"/>
-            <rect x="145" y="143" width="240" height="24" rx="5" fill="rgba(255,255,255,0.04)" stroke="rgba(108,63,200,0.08)" stroke-width="1"/>
-            <circle cx="161" cy="155" r="6" fill="rgba(224,64,160,0.25)" stroke="rgba(224,64,160,0.4)" stroke-width="1"/>
-            <rect x="174" y="151" width="75" height="5" rx="2" fill="rgba(255,255,255,0.4)"/>
-            <!-- CTAs -->
-            <rect x="145" y="180" width="112" height="26" rx="13" fill="rgba(108,63,200,0.55)" stroke="rgba(108,63,200,0.7)" stroke-width="1"/>
-            <rect x="163" y="188" width="76" height="7" rx="3" fill="rgba(255,255,255,0.65)"/>
-            <rect x="268" y="180" width="117" height="26" rx="13" fill="rgba(255,255,255,0.05)" stroke="rgba(108,63,200,0.25)" stroke-width="1.5"/>
-            <rect x="288" y="188" width="76" height="7" rx="3" fill="rgba(255,255,255,0.35)"/>
-          </svg>
-        </div>
-        <div class="card-body">
-          <div class="card-tags"><span class="card-tag">UX / UI</span><span class="card-tag">Training Hub</span></div>
-          <div class="card-title">Learning Management System</div>
-          <p class="card-desc">Designed the end-to-end UX for a scalable LMS — course navigation, progress tracking, and a component system for consistent module layouts.</p>
-          <a href="#" class="card-link">View Case Study</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ── Contact ── -->
-<section id="contact">
-  <div class="container">
-    <div class="contact-wrapper">
-      <div class="contact-info">
-        <p class="section-label">Get In Touch</p>
-        <h2 class="section-title">Let's work together</h2>
-        <p>Whether you're looking for a senior product designer, want to talk design systems, or just want to say hello — I'd love to hear from you.</p>
-        <div class="contact-links">
-          <a href="mailto:amruta.sp@gmail.com" class="contact-link">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
-            amruta.sp@gmail.com
-          </a>
-          <a href="https://www.linkedin.com/in/amrutainamdar" target="_blank" rel="noopener" class="contact-link">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"/></svg>
-            linkedin.com/in/amrutainamdar
-          </a>
-        </div>
-      </div>
-
-      <form id="contact-form" class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" placeholder="Your name" required />
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="your@email.com" required />
-        </div>
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="Tell me about your project or opportunity…" required></textarea>
-        </div>
-        <div id="form-status" class="form-status" role="alert"></div>
-        <button type="submit" class="btn btn-primary">Send Message</button>
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- ── Footer ── -->
-<footer>
-  <div class="container footer-inner">
-    <p class="footer-copy">&copy; 2025 Amruta Inamdar. All rights reserved.</p>
-    <div class="footer-li">
-      <a href="https://www.linkedin.com/in/amrutainamdar" target="_blank" rel="noopener">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        LinkedIn
-      </a>
-    </div>
-  </div>
-</footer>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>

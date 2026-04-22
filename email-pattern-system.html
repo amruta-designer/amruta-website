@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Email Pattern Design System — How Amruta Inamdar unified email communications across Bupa products using web components and design tokens." />
+  <title>Email Pattern Design System · Amruta Inamdar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles-v3.css" />
+  <style>
+    /* ── Case Study overrides ── */
+    .cs-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      transition: color var(--transition);
+    }
+    .cs-back:hover { color: var(--accent); opacity: 1; }
+    .cs-back svg { width: 16px; height: 16px; stroke: currentColor; fill: none; flex-shrink: 0; }
+
+    /* Hero */
+    #cs-hero {
+      padding-top: 7rem;
+      padding-bottom: 5rem;
+      background: var(--bg-primary);
+    }
+
+    .cs-hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .cs-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .cs-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .cs-meta-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .cs-meta-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .cs-impact-strip {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .cs-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .cs-stat-num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .cs-stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .cs-hero-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Section shared */
+    .cs-section {
+      padding: 5rem 0;
+    }
+
+    .cs-section:nth-child(even) {
+      background: var(--bg-secondary);
+    }
+
+    /* Challenge */
+    .challenge-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .challenge-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+      position: relative;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .challenge-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(108, 63, 200, 0.08);
+    }
+
+    .challenge-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-2));
+      border-radius: 3px 0 0 3px;
+    }
+
+    .challenge-item p {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+    }
+
+    /* Process phases */
+    .phases-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .phase-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .phase-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(108, 63, 200, 0.1);
+    }
+
+    .phase-number {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 0.25rem 0.65rem;
+      border-radius: 100px;
+      margin-bottom: 0.85rem;
+    }
+
+    .phase-card h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .phase-card p {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    .phase-findings {
+      margin-top: 1rem;
+      list-style: none;
+    }
+
+    .phase-findings li {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      padding-left: 1rem;
+      position: relative;
+      margin-bottom: 0.35rem;
+      line-height: 1.5;
+    }
+
+    .phase-findings li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--accent-2);
+      font-weight: 900;
+      font-size: 1.1rem;
+      line-height: 1.3;
+    }
+
+    /* Impact */
+    .impact-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .impact-metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+
+    .impact-metric-num {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .impact-metric-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .impact-results {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .result-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+
+    .result-block h4 {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .result-block ul {
+      list-style: none;
+    }
+
+    .result-block li {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      padding-left: 1rem;
+      position: relative;
+      margin-bottom: 0.5rem;
+      line-height: 1.55;
+    }
+
+    .result-block li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 900;
+      font-size: 1.1rem;
+      line-height: 1.3;
+    }
+
+    /* Insights */
+    .insights-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .insight-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .insight-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 36px rgba(108, 63, 200, 0.09);
+    }
+
+    .insight-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--accent-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .insight-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--accent);
+      fill: none;
+    }
+
+    .insight-card h3 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .insight-card p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* Case nav */
+    .cs-nav-footer {
+      padding: 4rem 0;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+    }
+
+    .cs-nav-links {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .cs-nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+
+    .cs-nav-link:hover { color: var(--accent); opacity: 1; }
+    .cs-nav-link svg { width: 18px; height: 18px; stroke: currentColor; fill: none; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .cs-hero-inner { grid-template-columns: 1fr; }
+      .cs-hero-visual { display: none; }
+      .challenge-list { grid-template-columns: 1fr; }
+      .phases-grid { grid-template-columns: 1fr; }
+      .impact-metrics { grid-template-columns: 1fr 1fr; }
+      .impact-results { grid-template-columns: 1fr; }
+      .insights-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .impact-metrics { grid-template-columns: 1fr; }
+      .cs-impact-strip { gap: 1.25rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── Nav ── -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">Amruta Inamdar</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Case Study Hero ── -->
+  <section id="cs-hero">
+    <div class="container">
+
+      <a href="index.html#work" class="cs-back">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+        </svg>
+        Back to Portfolio
+      </a>
+
+      <div class="cs-hero-inner">
+
+        <!-- Left: text -->
+        <div>
+          <div class="card-tags" style="margin-bottom:1rem;">
+            <span class="card-tag">Design Systems</span>
+            <span class="card-tag">Bupa</span>
+            <span class="card-tag">HTML / CSS</span>
+            <span class="card-tag">Cross-client Testing</span>
+            <span class="card-tag">Documentation</span>
+          </div>
+
+          <h1 style="font-size:clamp(2.2rem,5vw,4rem);margin-bottom:1rem;">Email Pattern<br>Design System</h1>
+
+          <p style="font-size:1.15rem;line-height:1.75;max-width:520px;">"A unified vision for email communications." — How the team eliminated 6 conflicting email styles, reduced production time, and achieved 90% adoption across 6 squads.</p>
+
+          <div class="cs-impact-strip">
+            <div class="cs-stat">
+              <span class="cs-stat-num">40%</span>
+              <span class="cs-stat-label">Reduction in production time</span>
+            </div>
+            <div class="cs-stat">
+              <span class="cs-stat-num">80%</span>
+              <span class="cs-stat-label">Render consistency</span>
+            </div>
+            <div class="cs-stat">
+              <span class="cs-stat-num">70%</span>
+              <span class="cs-stat-label">Product team adoption</span>
+            </div>
+          </div>
+
+          <div class="cs-meta-row">
+            <div class="cs-meta-item">
+              <span class="cs-meta-label">Role</span>
+              <span class="cs-meta-value">Senior Product Designer — Design Systems</span>
+            </div>
+            <div class="cs-meta-item">
+              <span class="cs-meta-label">Timeline</span>
+              <span class="cs-meta-value">8 months (ongoing)</span>
+            </div>
+            <div class="cs-meta-item">
+              <span class="cs-meta-label">Company</span>
+              <span class="cs-meta-value">Bupa</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: visual -->
+        <div class="cs-hero-visual">
+          <svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;height:auto;">
+            <rect width="480" height="320" rx="16" fill="rgba(108,63,200,0.05)" />
+            <!-- Email client frame -->
+            <rect x="24" y="24" width="432" height="272" rx="12" fill="white" stroke="rgba(108,63,200,0.15)" stroke-width="1.5" />
+            <!-- Header bar -->
+            <rect x="24" y="24" width="432" height="44" rx="12" fill="rgba(108,63,200,0.18)" />
+            <rect x="24" y="52" width="432" height="16" fill="rgba(108,63,200,0.18)" />
+            <rect x="44" y="38" width="72" height="10" rx="4" fill="rgba(255,255,255,0.7)" />
+            <rect x="320" y="36" width="56" height="12" rx="6" fill="rgba(224,64,160,0.85)" />
+            <rect x="384" y="36" width="56" height="12" rx="6" fill="rgba(255,255,255,0.3)" />
+            <!-- Hero banner area -->
+            <rect x="40" y="84" width="400" height="64" rx="8" fill="rgba(108,63,200,0.06)" stroke="rgba(108,63,200,0.15)" stroke-width="1" />
+            <line x1="42" y1="86" x2="438" y2="146" stroke="rgba(108,63,200,0.12)" stroke-width="1" />
+            <line x1="438" y1="86" x2="42" y2="146" stroke="rgba(108,63,200,0.12)" stroke-width="1" />
+            <rect x="160" y="107" width="160" height="16" rx="6" fill="rgba(108,63,200,0.2)" />
+            <!-- 2-col cards -->
+            <rect x="40" y="164" width="186" height="76" rx="8" fill="rgba(108,63,200,0.07)" stroke="rgba(108,63,200,0.2)" stroke-width="1" />
+            <rect x="56" y="178" width="110" height="8" rx="3" fill="rgba(108,63,200,0.35)" />
+            <rect x="56" y="192" width="140" height="5" rx="2" fill="rgba(108,63,200,0.2)" />
+            <rect x="56" y="202" width="120" height="5" rx="2" fill="rgba(108,63,200,0.15)" />
+            <rect x="56" y="216" width="68" height="16" rx="8" fill="rgba(224,64,160,0.6)" />
+            <rect x="254" y="164" width="186" height="76" rx="8" fill="rgba(224,64,160,0.06)" stroke="rgba(224,64,160,0.2)" stroke-width="1" />
+            <rect x="270" y="178" width="110" height="8" rx="3" fill="rgba(224,64,160,0.4)" />
+            <rect x="270" y="192" width="140" height="5" rx="2" fill="rgba(108,63,200,0.2)" />
+            <rect x="270" y="202" width="120" height="5" rx="2" fill="rgba(108,63,200,0.15)" />
+            <rect x="270" y="216" width="68" height="16" rx="8" fill="rgba(108,63,200,0.6)" />
+            <!-- Footer bar -->
+            <rect x="40" y="256" width="400" height="28" rx="8" fill="rgba(108,63,200,0.1)" stroke="rgba(108,63,200,0.2)" stroke-width="1" />
+            <rect x="56" y="264" width="64" height="8" rx="3" fill="rgba(108,63,200,0.4)" />
+            <rect x="360" y="264" width="64" height="8" rx="3" fill="rgba(224,64,160,0.5)" />
+            <!-- Token badge top-right -->
+            <rect x="372" y="8" width="84" height="22" rx="11" fill="rgba(224,64,160,0.2)" stroke="rgba(224,64,160,0.5)" stroke-width="1" />
+            <rect x="388" y="15" width="52" height="8" rx="3" fill="rgba(255,255,255,0.55)" />
+          </svg>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Challenge ── -->
+  <section class="cs-section" style="background:var(--bg-secondary);">
+    <div class="container">
+      <p class="section-label">Problem Space</p>
+      <h2 class="section-title">The Challenge</h2>
+      <p class="section-intro">As the platform grew, the team struggled with fragmented email experiences that slowed delivery and eroded brand trust.</p>
+
+      <ul class="challenge-list">
+        <li class="challenge-item">
+          <p>Inconsistent UI components across different squads, with each team interpreting system guidelines differently — resulting in 6 different email styles across products.</p>
+        </li>
+        <li class="challenge-item">
+          <p>No single source of truth: teams were picking patterns from legacy files, duplicating effort and introducing divergence.</p>
+        </li>
+        <li class="challenge-item">
+          <p>Creating responsive design patterns that maintain readability across desktop, mobile, and dark mode environments.</p>
+        </li>
+        <li class="challenge-item">
+          <p>Slow delivery cycles due to redesigning patterns from scratch for every new campaign or product email.</p>
+        </li>
+        <li class="challenge-item">
+          <p>Accessibility issues caused by non-standardised colours and interactions that failed WCAG requirements.</p>
+        </li>
+        <li class="challenge-item">
+          <p>High developer rework, especially around spacing and responsive rules, causing costly back-and-forth.</p>
+        </li>
+        <li class="challenge-item">
+          <p>Updating brand elements required manual changes across hundreds of templates — no token-based update path.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Process ── -->
+  <section class="cs-section" style="background:var(--bg-primary);">
+    <div class="container">
+      <p class="section-label">Approach</p>
+      <h2 class="section-title">A structured approach</h2>
+      <p class="section-intro">Four phases took the project from chaotic sprawl to a scalable, well-adopted system.</p>
+
+      <div class="phases-grid">
+
+        <div class="phase-card">
+          <span class="phase-number">Phase 01</span>
+          <h3>Research &amp; Audit</h3>
+          <p>Audited 250+ screens to catalogue UI patterns and highlight inconsistencies in colour, spacing, typography, and interactions. Collaborated with engineers to assess dev-side component variations, and ran workshops with squads to surface key pain points.</p>
+          <ul class="phase-findings">
+            <li>41% duplicated components across teams</li>
+            <li>Different button styles with no shared spec</li>
+            <li>Inconsistent spacing tokens — ranging from 4px to 16px increments</li>
+            <li>WCAG violations found in 32% of screens</li>
+          </ul>
+        </div>
+
+        <div class="phase-card">
+          <span class="phase-number">Phase 02</span>
+          <h3>Components &amp; Patterns</h3>
+          <p>Built 12 new patterns on top of existing foundations, tokens, and component library to improve consistency and reusability. Introduced additional tokens — including email-specific typography rules that switch to email-safe fonts based on viewport — and added local tokens to ensure patterns adapt correctly across different background contexts.</p>
+        </div>
+
+        <div class="phase-card">
+          <span class="phase-number">Phase 03</span>
+          <h3>Implementation &amp; Rollout</h3>
+          <p>Rolled out the system to product teams incrementally, with feedback loops built in throughout.</p>
+          <ul class="phase-findings">
+            <li>Created a Figma Library and Zeroheight documentation</li>
+            <li>Visual examples showing desktop and mobile rendering</li>
+            <li>Conducted onboarding workshops for designers and engineers</li>
+            <li>Established weekly office hours for ongoing support</li>
+          </ul>
+        </div>
+
+        <div class="phase-card">
+          <span class="phase-number">Phase 04</span>
+          <h3>Documentation &amp; Enablement</h3>
+          <p>To drive adoption, created comprehensive documentation and training materials that empowered teams to self-serve — removing bottlenecks and enabling designers and marketers to build on-brand emails confidently without specialist support.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Impact ── -->
+  <section class="cs-section" style="background:var(--bg-secondary);">
+    <div class="container">
+      <p class="section-label">Outcomes</p>
+      <h2 class="section-title">Measurable Impact</h2>
+      <p class="section-intro">The system delivered clear, quantifiable improvements alongside a meaningful shift in team confidence and culture.</p>
+
+      <div class="impact-metrics">
+        <div class="impact-metric-card">
+          <div class="impact-metric-num">42%</div>
+          <div class="impact-metric-label">Decrease in time to implement common UI patterns</div>
+        </div>
+        <div class="impact-metric-card">
+          <div class="impact-metric-num">54%</div>
+          <div class="impact-metric-label">Reduction in rework from visual inconsistencies</div>
+        </div>
+        <div class="impact-metric-card">
+          <div class="impact-metric-num">100%</div>
+          <div class="impact-metric-label">Of new screens built with the design system</div>
+        </div>
+      </div>
+
+      <div class="impact-results">
+        <div class="result-block">
+          <h4>Quantitative Results</h4>
+          <ul>
+            <li>42% decrease in time to implement common UI patterns</li>
+            <li>54% reduction in rework from visual inconsistencies</li>
+            <li>100% of new screens built using the design system</li>
+            <li>Achieved WCAG AA compliance for all core email flows</li>
+          </ul>
+        </div>
+        <div class="result-block">
+          <h4>Qualitative Results</h4>
+          <ul>
+            <li>Designers reported feeling "faster and more confident"</li>
+            <li>Engineers appreciated clear documentation with fewer ambiguities</li>
+            <li>Product managers highlighted improved feature delivery predictability</li>
+            <li>90% adoption achieved across 6 squads</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Key Insights ── -->
+  <section class="cs-section" style="background:var(--bg-primary);">
+    <div class="container">
+      <p class="section-label">Reflections</p>
+      <h2 class="section-title">Key Insights &amp; Learnings</h2>
+      <p class="section-intro">What made the difference between a component library that gets used and one that collects dust.</p>
+
+      <div class="insights-grid">
+
+        <div class="insight-card">
+          <div class="insight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607z" />
+            </svg>
+          </div>
+          <h3>Start with Research</h3>
+          <p>Understanding existing patterns and pain points was crucial to building a system that truly served team needs. Skipping the audit phase would have meant solving the wrong problems with polished components nobody wanted.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+            </svg>
+          </div>
+          <h3>Involve All Stakeholders</h3>
+          <p>Regular collaboration with designers, developers, and product teams ensured genuine buy-in and practical solutions. The weekly office hours were instrumental in catching edge cases early and building community around the system.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+            </svg>
+          </div>
+          <h3>Design for Scalability</h3>
+          <p>Building flexible, modular components with a token-based architecture allowed the system to grow and adapt to future product needs without requiring a rebuild — brand updates now propagate in minutes, not weeks.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.75">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+            </svg>
+          </div>
+          <h3>Documentation Drives Adoption</h3>
+          <p>The best component library fails if nobody uses it. Clear documentation, copy-paste code snippets, and regular office hours turned sceptical marketers into library advocates — adoption followed documentation quality directly.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Case Study Navigation ── -->
+  <div class="cs-nav-footer">
+    <div class="container">
+      <div class="cs-nav-links">
+        <a href="index.html#work" class="cs-nav-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+          </svg>
+          Back to Portfolio
+        </a>
+        <a href="bupa-payg-redesign.html" class="cs-nav-link">
+          Next: Bupa Pay As You Go
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container footer-inner">
+      <p class="footer-copy">&copy; 2025 Amruta Inamdar. All rights reserved.</p>
+      <div class="footer-li">
+        <a href="https://www.linkedin.com/in/amrutainamdar" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+          </svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+  </script>
+
+</body>
+</html>
