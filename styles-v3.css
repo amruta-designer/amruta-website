@@ -6,7 +6,8 @@
   --bg-card: #ffffff;
   --accent: #6c3fc8;
   --accent-2: #e040a0;
-  --accent-dim: rgba(108, 63, 200, 0.08);
+  --accent-dim: rgba(108, 63, 200, 0.06);
+  --accent-dark: #3d2278;
   --text-primary: #0d0a1e;
   --text-muted: #64748b;
   --border: #e8e3f8;
@@ -83,11 +84,11 @@ section {
 
 .section-label {
   display: inline-block;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-dark);
   background: var(--accent-dim);
   padding: 0.3rem 0.75rem;
   border-radius: 100px;
@@ -433,7 +434,7 @@ nav {
 }
 
 .skill-group h3 {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-bottom: 1rem;
@@ -452,7 +453,7 @@ nav {
 
 .tag {
   background: var(--bg-secondary);
-  color: var(--text-muted);
+  color: #4a5568;
   border: 1px solid var(--border);
   padding: 0.3rem 0.75rem;
   border-radius: 100px;
@@ -639,11 +640,11 @@ nav {
 }
 
 .card-tag {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-dark);
   background: var(--accent-dim);
   padding: 0.2rem 0.6rem;
   border-radius: 100px;

@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Scalable Component Library: how Amruta Inamdar built a unified design system to give product teams a single source of truth from tokens to components." />
+  <title>Scalable Component Library · Amruta Inamdar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles-v3.css" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <style>
+    /* ── Case Study overrides ── */
+    .cs-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      transition: color var(--transition);
+    }
+
+    .cs-back:hover {
+      color: var(--accent);
+      opacity: 1;
+    }
+
+    .cs-back svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      flex-shrink: 0;
+    }
+
+    /* Hero */
+    #cs-hero {
+      padding-top: 7rem;
+      padding-bottom: 5rem;
+      background: var(--bg-primary);
+    }
+
+    .cs-hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .cs-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .cs-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .cs-meta-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .cs-meta-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .cs-impact-strip {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .cs-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .cs-stat-num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .cs-stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .cs-hero-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Section shared */
+    .cs-section {
+      padding: 5rem 0;
+    }
+
+    .cs-section:nth-child(even) {
+      background: var(--bg-secondary);
+    }
+
+    /* Goals / challenge list */
+    .challenge-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .challenge-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+      position: relative;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .challenge-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(108, 63, 200, 0.08);
+    }
+
+    .challenge-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-2));
+      border-radius: 3px 0 0 3px;
+    }
+
+    .challenge-item h4 {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+    }
+
+    .challenge-item p {
+      font-size: 0.875rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+    }
+
+    /* Role list */
+    .role-list {
+      list-style: none;
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .role-list li {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      padding-left: 1.25rem;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .role-list li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--accent-2);
+      font-weight: 900;
+      font-size: 1.1rem;
+      line-height: 1.3;
+    }
+
+    /* Process phases */
+    .phases-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .phase-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .phase-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(108, 63, 200, 0.1);
+    }
+
+    .phase-number {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 0.25rem 0.65rem;
+      border-radius: 100px;
+      margin-bottom: 0.85rem;
+    }
+
+    .phase-card h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .phase-card p {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    .phase-findings {
+      margin-top: 1rem;
+      list-style: none;
+    }
+
+    .phase-findings li {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      padding-left: 1rem;
+      position: relative;
+      margin-bottom: 0.35rem;
+      line-height: 1.5;
+    }
+
+    .phase-findings li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--accent-2);
+      font-weight: 900;
+      font-size: 1.1rem;
+      line-height: 1.3;
+    }
+
+    /* Impact metrics */
+    .impact-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .impact-metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+
+    .impact-metric-num {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .impact-metric-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .impact-qual {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .impact-qual-item h4 {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .impact-qual-item p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* Insights */
+    .insights-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .insight-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .insight-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 36px rgba(108, 63, 200, 0.09);
+    }
+
+    .insight-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--accent-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .insight-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--accent);
+      fill: none;
+    }
+
+    .insight-card h3 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .insight-card p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* Case nav footer */
+    .cs-nav-footer {
+      padding: 4rem 0;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+    }
+
+    .cs-nav-links {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .cs-nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+
+    .cs-nav-link:hover {
+      color: var(--accent);
+      opacity: 1;
+    }
+
+    .cs-nav-link svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .cs-hero-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .cs-hero-visual {
+        display: none;
+      }
+
+      .challenge-list {
+        grid-template-columns: 1fr;
+      }
+
+      .role-list {
+        grid-template-columns: 1fr;
+      }
+
+      .phases-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .impact-metrics {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .impact-qual {
+        grid-template-columns: 1fr;
+      }
+
+      .insights-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .impact-metrics {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── Nav ── -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">Amruta Inamdar</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <section id="cs-hero">
+    <div class="container">
+
+      <a href="index.html#work" class="cs-back">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+        </svg>
+        Back to Portfolio
+      </a>
+
+      <div class="cs-hero-inner">
+
+        <!-- Left: text -->
+        <div>
+          <div class="card-tags" style="margin-bottom:1rem;">
+            <span class="card-tag">Design Tokens</span>
+            <span class="card-tag">Atomic Design</span>
+            <span class="card-tag">Zeroheight</span>
+            <span class="card-tag">Accessibility</span>
+            <span class="card-tag">Documentation</span>
+          </div>
+
+          <h1 style="font-size:clamp(2.2rem,5vw,4rem);margin-bottom:1rem;">Scalable Component<br>Library</h1>
+
+          <p style="font-size:1.15rem;line-height:1.75;max-width:520px;">One design language, built to last. A 12-month
+            project to give 40+ designers and 25+ engineers a shared foundation they could actually rely on.</p>
+
+          <div class="cs-impact-strip">
+            <div class="cs-stat">
+              <span class="cs-stat-num">60%</span>
+              <span class="cs-stat-label">Less design redundancy</span>
+            </div>
+            <div class="cs-stat">
+              <span class="cs-stat-num">3x</span>
+              <span class="cs-stat-label">Faster feature delivery</span>
+            </div>
+            <div class="cs-stat">
+              <span class="cs-stat-num">100%</span>
+              <span class="cs-stat-label">WCAG AA compliance</span>
+            </div>
+          </div>
+
+          <div class="cs-meta-row">
+            <div class="cs-meta-item">
+              <span class="cs-meta-label">Role</span>
+              <span class="cs-meta-value">Product Designer, UI/UX and Systems Lead</span>
+            </div>
+            <div class="cs-meta-item">
+              <span class="cs-meta-label">Team</span>
+              <span class="cs-meta-value">1 PM, 2 Designers, 2 Engineers</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: visual -->
+        <div class="cs-hero-visual">
+          <svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;height:auto;">
+            <rect width="480" height="320" rx="16" fill="rgba(108,63,200,0.04)" />
+            <!-- Atoms row -->
+            <circle cx="60" cy="60" r="18" fill="rgba(108,63,200,0.28)" stroke="rgba(108,63,200,0.65)"
+              stroke-width="1.5" />
+            <circle cx="114" cy="60" r="18" fill="rgba(224,64,160,0.22)" stroke="rgba(224,64,160,0.6)"
+              stroke-width="1.5" />
+            <rect x="142" y="46" width="60" height="28" rx="14" fill="rgba(108,63,200,0.16)"
+              stroke="rgba(108,63,200,0.5)" stroke-width="1.5" />
+            <rect x="216" y="50" width="36" height="20" rx="5" fill="rgba(224,64,160,0.16)"
+              stroke="rgba(224,64,160,0.5)" stroke-width="1.5" />
+            <rect x="264" y="50" width="70" height="20" rx="5" fill="rgba(108,63,200,0.1)"
+              stroke="rgba(108,63,200,0.38)" stroke-width="1.5" />
+            <circle cx="366" cy="60" r="12" fill="rgba(224,64,160,0.18)" stroke="rgba(224,64,160,0.5)"
+              stroke-width="1.5" />
+            <circle cx="400" cy="60" r="12" fill="rgba(108,63,200,0.14)" stroke="rgba(108,63,200,0.38)"
+              stroke-width="1.5" />
+            <!-- Atom label -->
+            <text x="24" y="63" font-family="DM Sans, sans-serif" font-size="8" font-weight="700"
+              fill="rgba(108,63,200,0.45)" letter-spacing="0.1em">ATOMS</text>
+            <!-- Connector lines -->
+            <line x1="60" y1="78" x2="100" y2="108" stroke="rgba(108,63,200,0.18)" stroke-width="1"
+              stroke-dasharray="3,3" />
+            <line x1="114" y1="78" x2="110" y2="108" stroke="rgba(108,63,200,0.18)" stroke-width="1"
+              stroke-dasharray="3,3" />
+            <line x1="172" y1="74" x2="248" y2="108" stroke="rgba(224,64,160,0.18)" stroke-width="1"
+              stroke-dasharray="3,3" />
+            <line x1="234" y1="70" x2="252" y2="108" stroke="rgba(224,64,160,0.18)" stroke-width="1"
+              stroke-dasharray="3,3" />
+            <line x1="390" y1="72" x2="360" y2="108" stroke="rgba(108,63,200,0.15)" stroke-width="1"
+              stroke-dasharray="3,3" />
+            <!-- Molecules row -->
+            <text x="24" y="123" font-family="DM Sans, sans-serif" font-size="8" font-weight="700"
+              fill="rgba(108,63,200,0.45)" letter-spacing="0.1em">MOLECULES</text>
+            <rect x="24" y="108" width="148" height="48" rx="8" fill="rgba(108,63,200,0.12)"
+              stroke="rgba(108,63,200,0.38)" stroke-width="1.5" />
+            <circle cx="50" cy="132" r="14" fill="rgba(108,63,200,0.28)" stroke="rgba(108,63,200,0.55)"
+              stroke-width="1" />
+            <rect x="72" y="125" width="70" height="7" rx="3" fill="rgba(255,255,255,0.45)" />
+            <rect x="72" y="137" width="52" height="5" rx="2" fill="rgba(255,255,255,0.28)" />
+            <rect x="188" y="108" width="148" height="48" rx="8" fill="rgba(224,64,160,0.08)"
+              stroke="rgba(224,64,160,0.32)" stroke-width="1.5" />
+            <rect x="200" y="120" width="120" height="7" rx="3" fill="rgba(255,255,255,0.42)" />
+            <rect x="200" y="132" width="96" height="5" rx="2" fill="rgba(255,255,255,0.28)" />
+            <rect x="200" y="142" width="56" height="9" rx="4" fill="rgba(108,63,200,0.48)"
+              stroke="rgba(108,63,200,0.65)" stroke-width="0.75" />
+            <rect x="352" y="108" width="104" height="48" rx="8" fill="rgba(108,63,200,0.08)"
+              stroke="rgba(108,63,200,0.28)" stroke-width="1.5" />
+            <rect x="364" y="118" width="72" height="7" rx="3" fill="rgba(255,255,255,0.42)" />
+            <rect x="364" y="130" width="54" height="5" rx="2" fill="rgba(255,255,255,0.28)" />
+            <rect x="364" y="141" width="72" height="9" rx="4" fill="rgba(224,64,160,0.42)" />
+            <!-- Connector lines molecules → organism -->
+            <line x1="98" y1="156" x2="160" y2="180" stroke="rgba(108,63,200,0.18)" stroke-width="1"
+              stroke-dasharray="3,3" />
+            <line x1="262" y1="156" x2="230" y2="180" stroke="rgba(224,64,160,0.18)" stroke-width="1"
+              stroke-dasharray="3,3" />
+            <line x1="404" y1="156" x2="330" y2="180" stroke="rgba(108,63,200,0.14)" stroke-width="1"
+              stroke-dasharray="3,3" />
+            <!-- Organism: full page card -->
+            <text x="24" y="195" font-family="DM Sans, sans-serif" font-size="8" font-weight="700"
+              fill="rgba(108,63,200,0.45)" letter-spacing="0.1em">ORGANISM</text>
+            <rect x="24" y="180" width="432" height="116" rx="10" fill="rgba(108,63,200,0.07)"
+              stroke="rgba(108,63,200,0.32)" stroke-width="2" />
+            <!-- Nav bar -->
+            <rect x="24" y="180" width="432" height="28" rx="10" fill="rgba(108,63,200,0.16)" />
+            <rect x="24" y="196" width="432" height="12" fill="rgba(108,63,200,0.16)" />
+            <rect x="40" y="190" width="60" height="8" rx="3" fill="rgba(255,255,255,0.55)" />
+            <rect x="340" y="188" width="50" height="10" rx="5" fill="rgba(224,64,160,0.7)" />
+            <rect x="398" y="188" width="44" height="10" rx="5" fill="rgba(255,255,255,0.22)" />
+            <!-- Content blocks -->
+            <rect x="40" y="220" width="180" height="10" rx="4" fill="rgba(255,255,255,0.38)" />
+            <rect x="40" y="235" width="130" height="6" rx="3" fill="rgba(255,255,255,0.22)" />
+            <rect x="40" y="246" width="80" height="16" rx="8" fill="rgba(224,64,160,0.55)"
+              stroke="rgba(224,64,160,0.75)" stroke-width="1" />
+            <!-- Token chips -->
+            <rect x="260" y="218" width="72" height="20" rx="6" fill="rgba(108,63,200,0.14)"
+              stroke="rgba(108,63,200,0.32)" stroke-width="1" />
+            <rect x="268" y="224" width="56" height="8" rx="3" fill="rgba(255,255,255,0.38)" />
+            <rect x="344" y="218" width="72" height="20" rx="6" fill="rgba(224,64,160,0.1)"
+              stroke="rgba(224,64,160,0.3)" stroke-width="1" />
+            <rect x="352" y="224" width="56" height="8" rx="3" fill="rgba(255,255,255,0.35)" />
+            <rect x="260" y="248" width="72" height="20" rx="6" fill="rgba(108,63,200,0.1)"
+              stroke="rgba(108,63,200,0.28)" stroke-width="1" />
+            <rect x="268" y="254" width="40" height="8" rx="3" fill="rgba(255,255,255,0.32)" />
+            <rect x="344" y="248" width="72" height="20" rx="6" fill="rgba(224,64,160,0.08)"
+              stroke="rgba(224,64,160,0.25)" stroke-width="1" />
+            <rect x="352" y="254" width="48" height="8" rx="3" fill="rgba(255,255,255,0.3)" />
+          </svg>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Goals ── -->
+  <section class="cs-section" style="background:var(--bg-secondary);">
+    <div class="container">
+      <p class="section-label">Purpose</p>
+      <h2 class="section-title">What We Were Trying to Build</h2>
+      <p class="section-intro">The goal was a design system teams would actually use. One that made the right decision
+        easy and inconsistency hard. That meant going beyond a component kit and building a real shared language.</p>
+
+      <ul class="challenge-list">
+        <li class="challenge-item">
+          <h4>Speed up screen creation</h4>
+          <p>Give designers pre-built, decision-ready components so they could focus on solving problems instead of
+            recreating buttons and form fields from scratch.</p>
+        </li>
+        <li class="challenge-item">
+          <h4>Reduce decision fatigue</h4>
+          <p>When everything has a dozen ways to solve it, teams slow down. A clear system makes the right choice the
+            obvious choice.</p>
+        </li>
+        <li class="challenge-item">
+          <h4>Support a growing product surface</h4>
+          <p>The product was expanding. The system needed to grow with it without breaking what already existed or
+            requiring a full rebuild every few months.</p>
+        </li>
+        <li class="challenge-item">
+          <h4>Cut repetitive, low-value work</h4>
+          <p>Designers were rebuilding the same components repeatedly across different projects. That time was being
+            wasted rather than spent on meaningful design problems.</p>
+        </li>
+        <li class="challenge-item">
+          <h4>Make visual and interaction consistency the default</h4>
+          <p>Without a shared foundation, every team made slightly different choices. The system needed to make
+            consistency automatic rather than something teams had to remember to maintain.</p>
+        </li>
+        <li class="challenge-item">
+          <h4>Bake accessibility in from the start</h4>
+          <p>Accessibility couldn't be a retrofit. WCAG 2.1 AA compliance needed to be built into every component so
+            teams inherited it without extra effort.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── My Role ── -->
+  <section class="cs-section" style="background:var(--bg-primary);">
+    <div class="container">
+      <p class="section-label">Contribution</p>
+      <h2 class="section-title">My Role</h2>
+      <p class="section-intro">As Design Systems Lead, I worked across engineering, product, and brand to build
+        something that would outlast the initial project. I wasn't just designing components. I was building the
+        infrastructure for how the team designed together.</p>
+
+      <ul class="role-list">
+        <li>Defined UI foundations and overall system architecture</li>
+        <li>Designed reusable components with variants, states, and token-driven styling</li>
+        <li>Wrote usage guidelines and decision documentation</li>
+        <li>Partnered with engineering on naming conventions, API structure, and handoff process</li>
+        <li>Led governance planning to keep the system healthy after launch</li>
+        <li>Drove adoption through office hours, documentation, and team-by-team onboarding</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Process ── -->
+  <section class="cs-section" style="background:var(--bg-secondary);">
+    <div class="container">
+      <p class="section-label">Process</p>
+      <h2 class="section-title">How We Built It</h2>
+      <p class="section-intro">Four phases, each building on the last. Starting with raw foundations and ending with the
+        processes that kept the system healthy long after launch.</p>
+
+      <div class="phases-grid">
+
+        <div class="phase-card">
+          <span class="phase-number">Phase 01</span>
+          <h3>UI Architecture</h3>
+          <p>Before touching components, I mapped out the structural foundations the system would need to support.
+            Starting with layout and hierarchy meant we avoided rebuilding things further down the line.</p>
+          <ul class="phase-findings">
+            <li>Defined colour, typography, elevation, and icon foundations</li>
+            <li>Primitive tokens: raw values for colour, spacing, and radius</li>
+            <li>Semantic tokens: purpose-based (button-bg, text-default)</li>
+            <li>Layout grid: columns, gutters, margins, and breakpoints</li>
+          </ul>
+        </div>
+
+        <div class="phase-card">
+          <span class="phase-number">Phase 02</span>
+          <h3>Design Tokens &amp; Foundations</h3>
+          <p>Tokens were the backbone of the system. Getting them right meant every component built on top would behave
+            consistently, and could be updated in one place rather than a hundred.</p>
+          <ul class="phase-findings">
+            <li>Colour tokens for primary, neutral, and functional use cases</li>
+            <li>Type system with a clear, scalable hierarchy</li>
+            <li>4/8px spacing scale for rhythm and alignment</li>
+            <li>Elevation and shadow guidelines for depth</li>
+            <li>Icon guidelines establishing a unified visual style</li>
+          </ul>
+        </div>
+
+        <div class="phase-card">
+          <span class="phase-number">Phase 03</span>
+          <h3>Component Library Build</h3>
+          <p>With foundations in place, I built out the component library, covering every pattern teams reached for
+            regularly. Each component was designed around real product usage, not just textbook coverage.</p>
+          <ul class="phase-findings">
+            <li>Buttons, form elements, cards, navigation, tables, modals</li>
+            <li>Chips, tags, dropdowns and more</li>
+            <li>Full variant and state coverage (hover, focus, active, disabled, loading)</li>
+            <li>Accessibility annotations for ARIA, keyboard nav, and focus management</li>
+            <li>Code-ready specs for engineering handoff</li>
+          </ul>
+        </div>
+
+        <div class="phase-card">
+          <span class="phase-number">Phase 04</span>
+          <h3>Governance &amp; Adoption</h3>
+          <p>A design system nobody uses is just a Figma file. The final phase was about making it easy for teams to
+            adopt and trust the system, and putting the right processes in place to keep it evolving.</p>
+          <ul class="phase-findings">
+            <li>Semantic versioning so teams understood breaking changes vs. additions</li>
+            <li>Regular office hours and a dedicated Slack support channel</li>
+            <li>Deprecation warnings to give teams time to migrate</li>
+            <li>Component adoption tracking and design-to-dev time metrics</li>
+            <li>Decision records documenting the "why" behind key choices</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div style="margin-top:3rem;">
+        <img src="asset/ds-token.png" alt="Design token architecture showing primitive and semantic token layers" style="width:100%;height:auto;display:block;" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Impact ── -->
+  <section class="cs-section" style="background:var(--bg-primary);">
+    <div class="container">
+      <p class="section-label">Outcomes</p>
+      <h2 class="section-title">What Changed</h2>
+      <p class="section-intro">The system became the central reference for the whole product organisation. The numbers
+        reflect genuine changes to how teams worked, not just metrics tracked for the sake of it.</p>
+
+      <div class="impact-metrics">
+        <div class="impact-metric-card">
+          <div class="impact-metric-num">60%</div>
+          <div class="impact-metric-label">Reduction in design redundancy</div>
+        </div>
+        <div class="impact-metric-card">
+          <div class="impact-metric-num">3x</div>
+          <div class="impact-metric-label">Faster feature delivery</div>
+        </div>
+        <div class="impact-metric-card">
+          <div class="impact-metric-num">100%</div>
+          <div class="impact-metric-label">WCAG AA compliance across all components</div>
+        </div>
+      </div>
+
+      <div class="impact-qual">
+        <div class="impact-qual-item">
+          <h4>Single Source of Truth</h4>
+          <p>The design system became the central reference for 40+ product designers and 25+ engineers across the
+            organisation. Duplicate work dropped significantly and design decision fatigue reduced noticeably across
+            teams.</p>
+        </div>
+        <div class="impact-qual-item">
+          <h4>Cross-team Alignment</h4>
+          <p>Shared vocabulary and consistent UI patterns reduced friction in design reviews and engineering handoffs.
+            New joiners got up to speed faster because the documentation gave them the reasoning, not just the rules.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Insights ── -->
+  <section class="cs-section" style="background:var(--bg-secondary);">
+    <div class="container">
+      <p class="section-label">Reflections</p>
+      <h2 class="section-title">What I Learned</h2>
+      <p class="section-intro">A year of building something other people depend on teaches you things a shorter project
+        never could.</p>
+
+      <div class="insights-grid">
+
+        <div class="insight-card">
+          <div class="insight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M20 7l-8-4-8 4m16 0-8 4m8-4v10l-8 4m0-10L4 7m8 4v10" />
+            </svg>
+          </div>
+          <h3>Design systems are products, not projects</h3>
+          <p>The most successful systems have dedicated teams, roadmaps, and success metrics. Treating it as a one-time
+            deliverable leads to drift as soon as the initial push is over.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <h3>Adoption requires education, not mandates</h3>
+          <p>Office hours, a Slack support channel, and celebrating team wins drove organic adoption far more
+            effectively than telling people they had to use it.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0" />
+            </svg>
+          </div>
+          <h3>Bring engineering in from the start</h3>
+          <p>Involving engineers early in component design prevented implementation surprises. Aligning on naming
+            conventions and API structures before finalising designs saved significant rework.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+            </svg>
+          </div>
+          <h3>Documentation is a living artifact</h3>
+          <p>The best documentation covers not just "what" but "why" and "when to use." Adding decision records and
+            anti-patterns helped teams understand the reasoning rather than just following rules.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+            </svg>
+          </div>
+          <h3>Version control is non-negotiable</h3>
+          <p>Semantic versioning helped teams understand the difference between breaking changes and additions.
+            Deprecation warnings gave people time to migrate rather than scrambling to fix things.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+            </svg>
+          </div>
+          <h3>Measure what actually matters</h3>
+          <p>Tracking component adoption rates, design-to-dev time, and accessibility scores gave us real evidence to
+            justify continued investment, and helped us spot what wasn't working early.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Case nav ── -->
+  <div class="cs-nav-footer">
+    <div class="container">
+      <div class="cs-nav-links">
+        <a href="index.html#work" class="cs-nav-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+          </svg>
+          Back to Portfolio
+        </a>
+        <a href="email-pattern-system.html" class="cs-nav-link">
+          Next: Email Pattern System
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container footer-inner">
+      <p class="footer-copy">&copy; 2025 Amruta Inamdar. All rights reserved.</p>
+      <div class="footer-li">
+        <a href="https://www.linkedin.com/in/amrutainamdar" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
+            <circle cx="4" cy="4" r="2" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      hamburger.classList.toggle('active');
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Learning Management System: how Amruta Inamdar modernised a legacy LMS platform to improve navigation, reduce support costs, and create a scalable design foundation." />
+  <title>Learning Management System · Amruta Inamdar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles-v3.css" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <style>
+    /* ── Case Study overrides ── */
+    .cs-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      transition: color var(--transition);
+    }
+
+    .cs-back:hover {
+      color: var(--accent);
+      opacity: 1;
+    }
+
+    .cs-back svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      flex-shrink: 0;
+    }
+
+    /* Hero */
+    #cs-hero {
+      padding-top: 7rem;
+      padding-bottom: 5rem;
+      background: var(--bg-primary);
+    }
+
+    .cs-hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .cs-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .cs-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .cs-meta-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .cs-meta-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .cs-impact-strip {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .cs-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .cs-stat-num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .cs-stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .cs-hero-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Section shared */
+    .cs-section {
+      padding: 5rem 0;
+    }
+
+    .cs-section:nth-child(even) {
+      background: var(--bg-secondary);
+    }
+
+    /* Challenge list */
+    .challenge-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .challenge-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+      position: relative;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .challenge-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(108, 63, 200, 0.08);
+    }
+
+    .challenge-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-2));
+      border-radius: 3px 0 0 3px;
+    }
+
+    .challenge-item h4 {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+    }
+
+    .challenge-item p {
+      font-size: 0.875rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+    }
+
+    /* Role list */
+    .role-list {
+      list-style: none;
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .role-list li {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      padding-left: 1.25rem;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .role-list li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--accent-2);
+      font-weight: 900;
+      font-size: 1.1rem;
+      line-height: 1.3;
+    }
+
+    /* Process phases */
+    .phases-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .phase-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .phase-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(108, 63, 200, 0.1);
+    }
+
+    .phase-number {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 0.25rem 0.65rem;
+      border-radius: 100px;
+      margin-bottom: 0.85rem;
+    }
+
+    .phase-card h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .phase-card p {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    .phase-findings {
+      margin-top: 1rem;
+      list-style: none;
+    }
+
+    .phase-findings li {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      padding-left: 1rem;
+      position: relative;
+      margin-bottom: 0.35rem;
+      line-height: 1.5;
+    }
+
+    .phase-findings li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--accent-2);
+      font-weight: 900;
+      font-size: 1.1rem;
+      line-height: 1.3;
+    }
+
+    /* Outcomes */
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+
+    .outcome-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.5rem 1.5rem 1.75rem;
+      position: relative;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .outcome-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(108, 63, 200, 0.08);
+    }
+
+    .outcome-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-2));
+      border-radius: 3px 0 0 3px;
+    }
+
+    .outcome-card h4 {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+    }
+
+    .outcome-card p {
+      font-size: 0.875rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+    }
+
+    /* Insights */
+    .insights-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .insight-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .insight-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 36px rgba(108, 63, 200, 0.09);
+    }
+
+    .insight-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--accent-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .insight-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--accent);
+      fill: none;
+    }
+
+    .insight-card h3 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .insight-card p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* Case nav footer */
+    .cs-nav-footer {
+      padding: 4rem 0;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+    }
+
+    .cs-nav-links {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .cs-nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+
+    .cs-nav-link:hover {
+      color: var(--accent);
+      opacity: 1;
+    }
+
+    .cs-nav-link svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .cs-hero-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .cs-hero-visual {
+        display: none;
+      }
+
+      .challenge-list {
+        grid-template-columns: 1fr;
+      }
+
+      .role-list {
+        grid-template-columns: 1fr;
+      }
+
+      .phases-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .outcome-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .insights-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── Nav ── -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">Amruta Inamdar</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <section id="cs-hero">
+    <div class="container">
+
+      <a href="index.html#work" class="cs-back">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+        </svg>
+        Back to Portfolio
+      </a>
+
+      <div class="cs-hero-inner">
+
+        <!-- Left: text -->
+        <div>
+          <div class="card-tags" style="margin-bottom:1rem;">
+            <span class="card-tag">Product Strategy</span>
+            <span class="card-tag">UX Research</span>
+            <span class="card-tag">Visual Design</span>
+            <span class="card-tag">Design Systems</span>
+          </div>
+
+          <h1 style="font-size:clamp(2.2rem,5vw,4rem);margin-bottom:1rem;">Learning Management<br>System</h1>
+
+          <p style="font-size:1.15rem;line-height:1.75;max-width:520px;">A legacy platform rebuilt from the ground up.
+            Clearer navigation, better information structure, and a design foundation that could actually scale.</p>
+
+          <div class="cs-impact-strip">
+            <div class="cs-stat">
+              <span class="cs-stat-num">6</span>
+              <span class="cs-stat-label">Months to delivery</span>
+            </div>
+            <div class="cs-stat">
+              <span class="cs-stat-num">3</span>
+              <span class="cs-stat-label">Core user problems solved</span>
+            </div>
+            <div class="cs-stat">
+              <span class="cs-stat-num">1</span>
+              <span class="cs-stat-label">Unified design system built</span>
+            </div>
+          </div>
+
+          <div class="cs-meta-row">
+            <div class="cs-meta-item">
+              <span class="cs-meta-label">Role</span>
+              <span class="cs-meta-value">Lead Product Designer, UI/UX</span>
+            </div>
+            <div class="cs-meta-item">
+              <span class="cs-meta-label">Team</span>
+              <span class="cs-meta-value">Product Owner, Sales</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: visual -->
+        <div class="cs-hero-visual">
+          <img
+            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/finalProduct%20-yxulBzDdUrigDYlkcfJFcOHLBPB1JC.png"
+            alt="Learning Management System redesigned dashboard showing course navigation and progress tracking"
+            style="width:100%;height:auto;display:block;border-radius:10px;" />
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Problem ── -->
+  <section class="cs-section" style="background:var(--bg-secondary);">
+    <div class="container">
+      <p class="section-label">Background</p>
+      <h2 class="section-title">A Platform That Had Outgrown Itself</h2>
+      <p class="section-intro">The LMS had been patched and extended over many years until it became genuinely hard to
+        use. Staff and external users were struggling to find basic information, and the support team was fielding calls
+        that good UX should have made unnecessary.</p>
+
+      <ul class="challenge-list">
+        <li class="challenge-item">
+          <h4>Navigation that defeated users</h4>
+          <p>Users could not find basic information without calling support. Frequent support requests were a direct
+            symptom of a navigation structure that had never been designed with users in mind.</p>
+        </li>
+        <li class="challenge-item">
+          <h4>Hidden account information</h4>
+          <p>Credit totals, renewal dates, and account details were buried or ambiguous. Users had no reliable way to
+            check where they stood without digging through multiple screens.</p>
+        </li>
+        <li class="challenge-item">
+          <h4>Fragmented progress tracking</h4>
+          <p>Learning progress and completion data were scattered across different sections with no single view. Users
+            had to piece together their own status from disconnected parts of the platform.</p>
+        </li>
+        <li class="challenge-item">
+          <h4>Years of accumulated complexity</h4>
+          <p>Unchecked feature additions over time had created deep layers of duplication and inconsistency. There was
+            no clear map of what the system actually contained or how its parts connected.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── My Role ── -->
+  <section class="cs-section" style="background:var(--bg-primary);">
+    <div class="container">
+      <p class="section-label">Contribution</p>
+      <h2 class="section-title">My Role</h2>
+      <p class="section-intro">Working with the Product Owner and sales team, I led the full design effort from research
+        through to final delivery. The scope went beyond screens. It included making sense of a system nobody had fully
+        mapped before.</p>
+
+      <ul class="role-list">
+        <li>Led user research through desk analysis, market comparison, and feedback collection</li>
+        <li>Translated pain points into concrete design solutions</li>
+        <li>Documented a complete feature inventory with connections to expose system complexity</li>
+        <li>Restructured the information architecture for simpler, more intuitive browsing</li>
+        <li>Produced wireframes and redesigned entry pages</li>
+        <li>Created design standards for the LMS and CMS foundations</li>
+        <li>Designed the visual identity, brand guidelines, and supporting marketing pages</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Research ── -->
+  <section class="cs-section" style="background:var(--bg-secondary);">
+    <div class="container">
+      <p class="section-label">Research</p>
+      <h2 class="section-title">What the Research Revealed</h2>
+      <p class="section-intro">Reviewing user feedback and looking at the competitive landscape made the problems
+        concrete. Three findings kept surfacing across every source we looked at.</p>
+
+      <ul class="challenge-list">
+        <li class="challenge-item">
+          <h4>Users were calling support instead of finding answers themselves</h4>
+          <p>The navigation was so confusing that users gave up and picked up the phone. Support calls were the most
+            visible signal that the platform's structure was failing people.</p>
+        </li>
+        <li class="challenge-item">
+          <h4>Account information was practically invisible</h4>
+          <p>Credit balances and renewal dates were either hidden or presented ambiguously. Users had no confidence in
+            what they were seeing, which eroded trust in the platform overall.</p>
+        </li>
+        <li class="challenge-item">
+          <h4>Learning progress was impossible to track at a glance</h4>
+          <p>Completion metrics and progression data were spread across multiple sections. Users had to navigate several
+            screens just to understand where they were in their learning journey.</p>
+        </li>
+      </ul>
+
+      <div style="margin-top:3rem;">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Frame%202-ytA0MrvsQPT4zpvzBEtqslTg3QMixm.png"
+          alt="Legacy LMS interface showing the fragmented and complex original platform design"
+          style="width:70%;height:auto;display:block;border-radius:10px;" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Process ── -->
+  <section class="cs-section" style="background:var(--bg-primary);">
+    <div class="container">
+      <p class="section-label">Process</p>
+      <h2 class="section-title">How We Approached It</h2>
+      <p class="section-intro">Three phases, each building on the last. We started by reframing problems as
+        opportunities, then mapped what actually existed before deciding what to fix.</p>
+
+      <div class="phases-grid">
+
+        <div class="phase-card">
+          <span class="phase-number">Phase 01</span>
+          <h3>How Might We Exploration</h3>
+          <p>Instead of jumping straight to solutions, we reframed every problem as a "How Might We" question. This
+            shift kept the team focused on user needs rather than jumping to obvious fixes, and opened up better ideas
+            in the early sessions.</p>
+          <ul class="phase-findings">
+            <li>HMW questions drafted for each identified pain point</li>
+            <li>Brainstorming sessions anchored around specific user challenges</li>
+            <li>Solutions evaluated against whether they actually addressed the root cause</li>
+          </ul>
+        </div>
+
+        <div class="phase-card">
+          <span class="phase-number">Phase 02</span>
+          <h3>Mapping the Existing System</h3>
+          <p>Years of additions meant nobody had a clear picture of what the platform actually contained. I built a
+            comprehensive spreadsheet cataloguing every feature and connection, which revealed just how much duplication
+            and fragmentation had built up.</p>
+          <ul class="phase-findings">
+            <li>Full feature inventory with relationship mapping</li>
+            <li>Duplicate elements identified and flagged for consolidation</li>
+            <li>Related features grouped to reveal natural clusters</li>
+            <li>Findings reviewed with decision-makers to agree on scope</li>
+          </ul>
+        </div>
+
+        <div class="phase-card">
+          <span class="phase-number">Phase 03</span>
+          <h3>Prioritising What to Fix</h3>
+          <p>With the full picture visible, the team could make informed decisions about where to focus. Not everything
+            needed a redesign. Prioritising the highest-impact problems kept the project manageable and delivered
+            results faster.</p>
+          <ul class="phase-findings">
+            <li>Critical flows identified through collaborative review</li>
+            <li>Priorities set based on user impact and delivery feasibility</li>
+            <li>IA restructuring scoped to the most-used pathways first</li>
+          </ul>
+        </div>
+
+        <div class="phase-card">
+          <span class="phase-number">Phase 04</span>
+          <h3>Design and Delivery</h3>
+          <p>Wireframes, page redesigns, and a new design system, all built around the restructured IA and validated
+            against the original research findings. The visual identity and brand guidelines were developed alongside
+            the product work.</p>
+          <ul class="phase-findings">
+            <li>Wireframes covering key user journeys</li>
+            <li>Entry pages and dashboard redesigned first</li>
+            <li>Reusable components and design tokens established</li>
+            <li>Brand guidelines and marketing pages delivered alongside the product</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div style="margin-top:3rem;">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Frame%203-5wVqXSDinrI1tE1Gw8tLM0SpMRGbfZ.png"
+          alt="LMS information architecture diagram showing the restructured sitemap and feature relationships"
+          style="width:100%;height:auto;display:block;border-radius:10px;" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Outcomes ── -->
+  <section class="cs-section" style="background:var(--bg-secondary);">
+    <div class="container">
+      <p class="section-label">Outcomes</p>
+      <h2 class="section-title">What We Delivered</h2>
+      <p class="section-intro">The redesign addressed each of the core problems identified in research. The result was a
+        platform people could actually use, with a design foundation that teams could build on going forward.</p>
+
+      <div class="outcome-grid">
+        <div class="outcome-card">
+          <h4>Clearer Information Architecture</h4>
+          <p>Consolidating duplicated functionality made it far easier to find what you needed. Support requests tied to
+            navigation dropped as users started finding answers themselves.</p>
+        </div>
+        <div class="outcome-card">
+          <h4>Better User Experience</h4>
+          <p>Consistent patterns, improved navigation flows, and clearer account and progress displays gave users the
+            clarity the old platform had been missing.</p>
+        </div>
+        <div class="outcome-card">
+          <h4>Design System Foundations</h4>
+          <p>Reusable components, type treatments, colour decisions, and interaction standards were documented so future
+            work could build on a shared base rather than starting from scratch each time.</p>
+        </div>
+        <div class="outcome-card">
+          <h4>Brand Identity and Marketing Support</h4>
+          <p>Alongside the product work, complementary brand documentation and promotional materials gave the wider
+            business a consistent visual language to work from.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Insights ── -->
+  <section class="cs-section" style="background:var(--bg-primary);">
+    <div class="container">
+      <p class="section-label">Reflections</p>
+      <h2 class="section-title">What I Learned</h2>
+      <p class="section-intro">Legacy systems carry lessons that greenfield projects never teach you. Six months in a
+        platform that nobody had fully mapped before left me with a different set of instincts.</p>
+
+      <div class="insights-grid">
+
+        <div class="insight-card">
+          <div class="insight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776" />
+            </svg>
+          </div>
+          <h3>Legacy products hide structural complexity</h3>
+          <p>Years of additions create nested feature layers that are invisible until you map them out. Building a
+            complete inventory before designing anything proved essential for actually understanding what we were
+            working with.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+            </svg>
+          </div>
+          <h3>HMW framing opens up better solutions</h3>
+          <p>Reframing problems as "How Might We" questions during the redesign turned blockers into design
+            opportunities. It kept the team thinking about possibilities rather than defaulting to the most obvious fix.
+          </p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
+            </svg>
+          </div>
+          <h3>User feedback surfaces what metrics miss</h3>
+          <p>Direct feedback mechanisms uncovered issues that usage data alone never flagged. Numbers tell you something
+            is broken; talking to users tells you why.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5" />
+            </svg>
+          </div>
+          <h3>Cluttered UX often reflects unclear internal priorities</h3>
+          <p>The disorganised platform was a symptom of unguided feature expansion over time. It reinforced how
+            important regular structural review is, not as a one-off project but as ongoing practice.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Case nav ── -->
+  <div class="cs-nav-footer">
+    <div class="container">
+      <div class="cs-nav-links">
+        <a href="index.html#work" class="cs-nav-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+          </svg>
+          Back to Portfolio
+        </a>
+        <a href="design-system.html" class="cs-nav-link">
+          Next: Scalable Component Library
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container footer-inner">
+      <p class="footer-copy">&copy; 2025 Amruta Inamdar. All rights reserved.</p>
+      <div class="footer-li">
+        <a href="https://www.linkedin.com/in/amrutainamdar" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
+            <circle cx="4" cy="4" r="2" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      hamburger.classList.toggle('active');
+    });
+  </script>
+
+</body>
+
+</html>
